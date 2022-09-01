@@ -1,0 +1,29 @@
+// Workspace settings override user settings.
+{
+    "files.associations": {
+        ".ansible-lint": "yaml",
+        "*.j2": "ansible-jinja",
+        "**/defaults/**/*.yml": "ansible-jinja",
+        "**/group_vars/**/*": "ansible-jinja",
+        "**/host_vars/**/*": "ansible-jinja",
+        "**/vars/**/*.yml": "ansible-jinja",
+        "**/tasks/**/*.yml": "ansible",
+        "**/handlers/*.yml": "ansible",
+        "**/meta/*.yml": "ansible",
+        "**/roles/**/*.yml": "ansible",
+        "**/playbooks/**/*.yml": "ansible",
+        "**/ansible/**/hosts": "properties",
+        "**/ansible/**/inventory": "properties",
+        "ansible.cfg": "properties",
+    },
+    "[ansible]": {
+        // "editor.defaultFormatter": "redhat.vscode-yaml",
+        // "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+    },
+    // redhat.ansible
+    "ansible.ansibleLint.enabled": true,
+    "ansible.ansibleLint.arguments": "",
+    // redhat.vscode-yaml
+    "yaml.format.printWidth": 120,
+}

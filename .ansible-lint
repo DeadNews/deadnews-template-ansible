@@ -1,0 +1,10 @@
+---
+exclude_paths:
+  - .pre-commit-config.yaml
+
+skip_list:
+  - name[casing]
+  - name[missing]
+  - name[play]
+  - package-latest
+  - yaml[indentation]

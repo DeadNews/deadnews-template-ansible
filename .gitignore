@@ -1,0 +1,17 @@
+# ansible
+.vagrant
+*.retry
+.ansible-retry
+.DS_Store
+vault.key
+
+# vscode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local history for vscode
+.history/
