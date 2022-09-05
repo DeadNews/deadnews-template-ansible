@@ -13,13 +13,13 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/ansible/ansible-lint
-    rev: v6.5.0
+    rev: v6.5.2
     hooks:
       - id: ansible-lint
         args: [--write]
 
   - repo: https://github.com/executablebooks/mdformat
-    rev: 0.7.15
+    rev: 0.7.16
     hooks:
       - id: mdformat
         additional_dependencies:
