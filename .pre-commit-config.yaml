@@ -17,6 +17,13 @@ repos:
     hooks:
       - id: ansible-lint
         args: [--write]
+        exclude: ^.github/
+
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.20.0
+    hooks:
+      - id: check-dependabot
+      - id: check-github-workflows
 
   - repo: https://github.com/executablebooks/mdformat
     rev: 0.7.16
