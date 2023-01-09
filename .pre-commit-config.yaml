@@ -16,8 +16,7 @@ repos:
     rev: v6.10.2
     hooks:
       - id: ansible-lint
-        args: [--write]
-        exclude: ^.github/
+        args: [--write, --exclude, .github]
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
     rev: 0.20.0

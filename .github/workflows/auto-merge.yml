@@ -1,7 +1,7 @@
----
 name: Auto-Merge Bot PRs
 
-true: [pull_request]
+on: [pull_request]
+
 jobs:
   wait-for-checks:
     if: ${{ (github.actor == 'dependabot[bot]') || (github.actor == 'pre-commit-ci[bot]') }}
