@@ -13,16 +13,10 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/ansible/ansible-lint
-    rev: v6.11.0
+    rev: v6.12.1
     hooks:
       - id: ansible-lint
         args: [--write, --exclude, .github]
-
-  - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.21.0
-    hooks:
-      - id: check-dependabot
-      - id: check-github-workflows
 
   - repo: https://github.com/executablebooks/mdformat
     rev: 0.7.16
