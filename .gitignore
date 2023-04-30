@@ -1,8 +1,10 @@
 # ansible
-.vagrant
-*.retry
 .ansible-retry
 .DS_Store
+.vagrant
+*.retry
+ansible.log
+facts.json
 vault.key
 
 # vscode
