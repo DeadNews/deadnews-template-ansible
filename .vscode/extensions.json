@@ -1,7 +1,9 @@
 {
-    // List of extensions which should be recommended for users of this workspace.
-    "recommendations": [
-        "redhat.ansible",
-        "redhat.vscode-yaml",
-    ]
+  // List of extensions which should be recommended for users of this workspace.
+  "recommendations": [
+    "redhat.ansible",
+    "esbenp.prettier-vscode",
+    "samuelcolvin.jinjahtml",
+    "tamasfe.even-better-toml"
+  ]
 }
