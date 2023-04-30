@@ -1,6 +1,8 @@
 ---
 exclude_paths:
+  - .github/
   - .pre-commit-config.yaml
+  - .prettierrc.yaml
 
 skip_list:
   - name[casing]
