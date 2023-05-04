@@ -10,5 +10,3 @@ skip_list:
   - name[play]
   - package-latest
   - yaml[indentation]
-
-offline: true
