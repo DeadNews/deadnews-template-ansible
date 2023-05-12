@@ -1,16 +1,16 @@
 // Workspace settings override user settings.
 {
+  "[ansible]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
   "files.associations": {
-    ".ansible-lint": "yaml",
     "**/handlers/*.yml": "ansible",
     "**/meta/*.yml": "ansible",
     "**/playbooks/**/*.yml": "ansible",
     "**/roles/**/*.yml": "ansible",
     "**/tasks/**/*.yml": "ansible",
+    ".ansible-lint": "yaml",
     "ansible.cfg": "properties"
-  },
-  "[ansible]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
   }
 }
