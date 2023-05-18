@@ -13,6 +13,5 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
   },
-  "ansible.ansible.reuseTerminal": true,
-  "ansible.python.interpreterPath": "/home/user/.cache/pypoetry/virtualenvs/deadnews-template-ansible-EQAYLr04-py3.10/bin/python"
+  "ansible.ansible.reuseTerminal": true
 }
