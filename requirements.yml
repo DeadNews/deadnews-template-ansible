@@ -4,4 +4,4 @@ collections:
     version: 7.0.0
 
   - name: ansible.posix
-    version: 1.5.2
+    version: 1.5.4
