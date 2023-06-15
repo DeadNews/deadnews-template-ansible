@@ -6,8 +6,6 @@ exclude_paths:
   - .prettierrc.yaml
 
 skip_list:
-  - name[casing]
-  - name[missing]
   - name[play]
   - package-latest
   - yaml[indentation]
