@@ -9,7 +9,7 @@ python = "^3.10"
 ansible-core = "^2.15.0"
 
 [tool.poetry.group.dev.dependencies]
-ansible-lint = { version = "^6.16.1", markers = "platform_system != 'Windows'" }
+ansible-lint = { version = "^6.17.2", markers = "platform_system != 'Windows'" }
 
 [tool.poetry.group.ci.dependencies]
 ansible-runner = "^2.3.2"
