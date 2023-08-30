@@ -37,5 +37,12 @@ jobs:
       - name: Install
         run: poetry install
 
+      - name: Run molecule
+        run: poetry run molecule test
+        env:
+          PY_COLORS: "1"
+
       - name: Run tests
         run: poetry run pytest
+        env:
+          PY_COLORS: "1"

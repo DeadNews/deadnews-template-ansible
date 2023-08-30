@@ -1,11 +1,10 @@
 ---
 platforms:
-  - name: molecule-ubuntu
-    image: ubuntu:22.04
+  - name: molecule-distro
+    image: python:latest
 
 provisioner:
   name: ansible
   playbooks:
-    converge: ../../../../molecule/default/converge.yml
     create: ../../../../molecule/default/create.yml
     destroy: ../../../../molecule/default/destroy.yml
