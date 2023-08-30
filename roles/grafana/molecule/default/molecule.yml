@@ -6,6 +6,6 @@ platforms:
 provisioner:
   name: ansible
   playbooks:
-    converge: molecule/default/converge.yml
-    create: molecule/default/create.yml
-    destroy: molecule/default/destroy.yml
+    converge: ../../../../molecule/default/converge.yml
+    create: ../../../../molecule/default/create.yml
+    destroy: ../../../../molecule/default/destroy.yml
