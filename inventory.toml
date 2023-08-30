@@ -1,0 +1,8 @@
+[all]
+children = ["local"]
+
+[all.vars]
+example = true
+
+[local.hosts]
+localhost = { ansible_connection = "local" }

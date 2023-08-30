@@ -1,0 +1,7 @@
+---
+- name: (Handler) Restart Grafana Tempo service
+  ansible.builtin.systemd:
+    name: tempo
+    enabled: true
+    state: restarted
+    daemon_reload: true

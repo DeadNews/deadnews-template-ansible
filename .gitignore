@@ -1,8 +1,10 @@
 # ansible
-ansible-retry
+.ansible-retry
 .facts_cache/
 .vault.key
 *.retry
+artifacts/
+vault.key
 
 # vscode
 .vscode/*
