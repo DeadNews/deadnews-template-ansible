@@ -3,6 +3,7 @@
   "files.associations": {
     "**/handlers/*.yml": "ansible",
     "**/meta/*.yml": "ansible",
+    "**/molecule/**/*.yml": "ansible",
     "**/playbooks/**/*.yml": "ansible",
     "**/roles/**/*.yml": "ansible",
     "**/tasks/**/*.yml": "ansible",
@@ -13,5 +14,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
   },
-  "ansible.ansible.reuseTerminal": true
+  "ansible.ansible.reuseTerminal": true,
+  // pytest
+  "python.testing.pytestEnabled": true
 }

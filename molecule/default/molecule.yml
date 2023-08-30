@@ -1,0 +1,4 @@
+---
+platforms:
+  - name: molecule-ubuntu
+    image: ubuntu:22.04

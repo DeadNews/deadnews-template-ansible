@@ -12,8 +12,12 @@ ansible-core = "^2.15.3"
 ansible-lint = { version = "^6.18.0", markers = "platform_system != 'Windows'" }
 
 [tool.poetry.group.test.dependencies]
-molecule = "^6.0.1"
-pytest-testinfra = "^9.0.0"
+molecule = "^6.0.2"
+pytest-ansible = "^4.0.0"
 
 [tool.poetry.group.ci.dependencies]
 ansible-runner = "^2.3.4"
+
+[tool.pytest.ini_options]
+addopts = "--verbose"
+testpaths = ["tests"]

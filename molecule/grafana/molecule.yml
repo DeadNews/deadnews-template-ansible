@@ -1,0 +1,11 @@
+---
+platforms:
+  - name: molecule-ubuntu
+    image: ubuntu:22.04
+
+provisioner:
+  name: ansible
+  playbooks:
+    converge: ../default/converge.yml
+    create: ../default/create.yml
+    destroy: ../default/destroy.yml
