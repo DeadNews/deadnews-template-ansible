@@ -3,7 +3,7 @@
   "extends": ["config:base", "github>DeadNews/renovate-config"],
   "regexManagers": [
     {
-      "fileMatch": ["*.yml$"],
+      "fileMatch": ["^molecule/playbooks/prepare\\.yml$"],
       "matchStrings": [
         "version: (?<currentValue>.+?) # renovate: datasource=(?<datasource>[a-z-]+?) dep_name=(?<depName>[^\\s]+?)\\n"
       ]
