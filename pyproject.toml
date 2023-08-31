@@ -13,6 +13,7 @@ ansible-lint = { version = "^6.18.0", markers = "platform_system != 'Windows'" }
 
 [tool.poetry.group.test.dependencies]
 molecule = "^6.0.2"
+pytest = "^7.4.0"
 pytest-ansible = "^4.0.0"
 
 [tool.poetry.group.ci.dependencies]

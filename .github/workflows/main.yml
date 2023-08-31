@@ -24,6 +24,10 @@ jobs:
   tests:
     name: Tests
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        molecule_distro: [python]
     steps:
       - uses: actions/checkout@v3
 
@@ -34,15 +38,11 @@ jobs:
         with:
           cache: poetry
 
-      - name: Install
+      - name: Install deps
         run: poetry install
-
-      - name: Run molecule
-        run: poetry run molecule test
-        env:
-          PY_COLORS: "1"
 
       - name: Run tests
         run: poetry run pytest
         env:
+          MOLECULE_DISTRO: ${{ matrix.molecule_distro }}
           PY_COLORS: "1"

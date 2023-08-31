@@ -1,0 +1,21 @@
+---
+- name: Prepare
+  hosts: molecule
+  tasks:
+    - name: Install python3-debian
+      ansible.builtin.apt:
+        name: python3-debian
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Install systemctl.py
+      ansible.builtin.get_url:
+        url: https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/master/files/docker/systemctl3.py
+        dest: /usr/bin/systemctl
+        mode: "0755"
+
+    - name: Ensure run directory for ansible check_systemd
+      ansible.builtin.file:
+        name: /run/systemd/system/
+        state: directory
+        mode: "0755"
