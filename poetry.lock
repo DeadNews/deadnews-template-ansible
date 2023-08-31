@@ -586,6 +586,17 @@ MarkupSafe = ">=2.0"
 i18n = ["Babel (>=2.7)"]
 
 [[package]]
+name = "jmespath"
+version = "1.0.1"
+description = "JSON Matching Expressions"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "jmespath-1.0.1-py3-none-any.whl", hash = "sha256:02e2e4cc71b5bcab88332eebf907519190dd9e6e82107fa7f83b1003a6252980"},
+    {file = "jmespath-1.0.1.tar.gz", hash = "sha256:90261b206d6defd58fdd5e85f478bf633a2901798906be2ad389150c5c60edbe"},
+]
+
+[[package]]
 name = "jsonschema"
 version = "4.19.0"
 description = "An implementation of JSON Schema validation for Python"
@@ -1344,4 +1355,4 @@ dev = ["doc8", "flake8", "flake8-import-order", "rstcheck[sphinx]", "sphinx"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "aa9b3d82779e2308e93944280c744f2ad4df690545109c5ac7514a264cd9aa1e"
+content-hash = "4903021d87ddedc2148d8441e9ed75a38d8cfa7f8657c7070c45ee7b6732e94a"

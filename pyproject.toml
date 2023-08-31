@@ -7,6 +7,7 @@ authors = ["DeadNews <aurczpbgr@mozmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.10"
 ansible-core = "^2.15.3"
+jmespath = "^1.0.1"
 
 [tool.poetry.group.lint.dependencies]
 ansible-lint = { version = "^6.18.0", markers = "platform_system != 'Windows'" }

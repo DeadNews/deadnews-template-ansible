@@ -1,6 +1,8 @@
 ---
 - name: Prepare
   hosts: molecule
+  vars:
+    version: v1.5.7106 # renovate: datasource=github-tags dep_name=gdraheim/docker-systemctl-replacement
   tasks:
     - name: Install python3-debian
       ansible.builtin.apt:
@@ -8,9 +10,20 @@
         state: present
       when: ansible_os_family == "Debian"
 
+    - name: Scrape Github API endpoint to obtain tags
+      ansible.builtin.uri:
+        url: https://api.github.com/repos/gdraheim/docker-systemctl-replacement/tags
+      register: _tags
+
+    - name: Get commit sha corresponding to the version
+      ansible.builtin.set_fact:
+        commit_sha: "{{ _tags.json | community.general.json_query(jmesquery) | first }}" # noqa: jinja[invalid]
+      vars:
+        jmesquery: "[?name=='{{ version }}'].commit.sha"
+
     - name: Install systemctl.py
       ansible.builtin.get_url:
-        url: https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/master/files/docker/systemctl3.py
+        url: https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/{{ commit_sha }}/files/docker/systemctl3.py
         dest: /usr/bin/systemctl
         mode: "0755"
 

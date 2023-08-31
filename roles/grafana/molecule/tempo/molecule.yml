@@ -1,10 +1,9 @@
 ---
 platforms:
-  - name: molecule-distro
-    image: ${MOLECULE_DISTRO:-python}
+  - name: molecule-image
+    image: ${MOLECULE_IMAGE:-python}
 
 provisioner:
-  name: ansible
   playbooks:
     create: ../../../../molecule/playbooks/create.yml
     destroy: ../../../../molecule/playbooks/destroy.yml
