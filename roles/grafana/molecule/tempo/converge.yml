@@ -1,0 +1,8 @@
+---
+- name: Converge
+  hosts: molecule
+  tasks:
+    - name: Install Grafana Tempo
+      ansible.builtin.include_role:
+        name: grafana
+        tasks_from: tempo

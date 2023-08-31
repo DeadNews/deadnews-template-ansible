@@ -11,6 +11,9 @@ on:
 permissions:
   contents: read
 
+env:
+  PY_COLORS: "1"
+
 jobs:
   lint:
     name: Lint code
@@ -18,5 +21,46 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Ansible Lint
-        uses: ansible/ansible-lint-action@cad5176ea6f24a38f909d688bd467ec8d942d7e1 # v6.17.0
+      - name: Install poetry
+        run: pipx install poetry
+
+      - uses: actions/setup-python@v4
+        with:
+          cache: poetry
+
+      - name: Install deps
+        run: poetry install
+
+      - name: Install ansible-galaxy deps
+        run: poetry run ansible-galaxy install -r requirements.yml
+
+      - name: Lint code
+        run: poetry run ansible-lint
+
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        molecule-image: [python]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - uses: actions/setup-python@v4
+        with:
+          cache: poetry
+
+      - name: Install deps
+        run: poetry install
+
+      - name: Install ansible-galaxy deps
+        run: poetry run ansible-galaxy install -r requirements.yml
+
+      - name: Run tests
+        run: poetry run pytest
+        env:
+          MOLECULE_IMAGE: ${{ matrix.molecule-image }}

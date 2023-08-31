@@ -37,7 +37,7 @@
 
 - name: Verify that Grafana Tempo URL is responding
   ansible.builtin.uri:
-    url: http://{{ ansible_host }}:3200/ready
+    url: http://127.0.0.1:3200/ready
   register: tempo_verify
   retries: 5
   delay: 8

@@ -1,0 +1,10 @@
+---
+platforms:
+  - name: molecule-image
+    image: ${MOLECULE_IMAGE:-python}
+
+provisioner:
+  playbooks:
+    create: ../../../../molecule/playbooks/create.yml
+    destroy: ../../../../molecule/playbooks/destroy.yml
+    prepare: ../../../../molecule/playbooks/prepare.yml

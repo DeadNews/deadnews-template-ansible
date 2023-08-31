@@ -1,4 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base", "github>DeadNews/renovate-config"]
+  "extends": ["config:base", "github>DeadNews/renovate-config"],
+  "regexManagers": [
+    {
+      "fileMatch": ["*.yml$"],
+      "matchStrings": [
+        "version: (?<currentValue>.+?) # renovate: datasource=(?<datasource>[a-z-]+?) dep_name=(?<depName>[^\\s]+?)\\n"
+      ]
+    }
+  ]
 }
