@@ -11,6 +11,9 @@ on:
 permissions:
   contents: read
 
+env:
+  PY_COLORS: "1"
+
 jobs:
   lint:
     name: Lint code
@@ -51,8 +54,10 @@ jobs:
       - name: Install deps
         run: poetry install
 
+      - name: Install ansible-galaxy deps
+        run: poetry run ansible-galaxy install -r requirements.yml
+
       - name: Run tests
         run: poetry run pytest
         env:
           MOLECULE_DISTRO: ${{ matrix.molecule_distro }}
-          PY_COLORS: "1"
