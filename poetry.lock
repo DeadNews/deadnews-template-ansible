@@ -155,13 +155,13 @@ uvloop = ["uvloop (>=0.15.2)"]
 
 [[package]]
 name = "bracex"
-version = "2.3.post1"
+version = "2.4"
 description = "Bash style brace expander."
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "bracex-2.3.post1-py3-none-any.whl", hash = "sha256:351b7f20d56fb9ea91f9b9e9e7664db466eb234188c175fd943f8f755c807e73"},
-    {file = "bracex-2.3.post1.tar.gz", hash = "sha256:e7b23fc8b2cd06d3dec0692baabecb249dda94e06a617901ff03a6c56fd71693"},
+    {file = "bracex-2.4-py3-none-any.whl", hash = "sha256:efdc71eff95eaff5e0f8cfebe7d01adf2c8637c8c92edaf63ef348c241a82418"},
+    {file = "bracex-2.4.tar.gz", hash = "sha256:a27eaf1df42cf561fed58b7a8f3fdf129d1ea16a81e1fadd1d17989bc6384beb"},
 ]
 
 [[package]]
@@ -586,17 +586,6 @@ MarkupSafe = ">=2.0"
 i18n = ["Babel (>=2.7)"]
 
 [[package]]
-name = "jmespath"
-version = "1.0.1"
-description = "JSON Matching Expressions"
-optional = false
-python-versions = ">=3.7"
-files = [
-    {file = "jmespath-1.0.1-py3-none-any.whl", hash = "sha256:02e2e4cc71b5bcab88332eebf907519190dd9e6e82107fa7f83b1003a6252980"},
-    {file = "jmespath-1.0.1.tar.gz", hash = "sha256:90261b206d6defd58fdd5e85f478bf633a2901798906be2ad389150c5c60edbe"},
-]
-
-[[package]]
 name = "jsonschema"
 version = "4.19.0"
 description = "An implementation of JSON Schema validation for Python"
@@ -881,13 +870,13 @@ plugins = ["importlib-metadata"]
 
 [[package]]
 name = "pytest"
-version = "7.4.0"
+version = "7.4.1"
 description = "pytest: simple powerful testing with Python"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "pytest-7.4.0-py3-none-any.whl", hash = "sha256:78bf16451a2eb8c7a2ea98e32dc119fd2aa758f1d5d66dbf0a59d69a3969df32"},
-    {file = "pytest-7.4.0.tar.gz", hash = "sha256:b4bf8c45bd59934ed84001ad51e11b4ee40d40a1229d2c79f9c592b0a3f6bd8a"},
+    {file = "pytest-7.4.1-py3-none-any.whl", hash = "sha256:460c9a59b14e27c602eb5ece2e47bec99dc5fc5f6513cf924a7d03a578991b1f"},
+    {file = "pytest-7.4.1.tar.gz", hash = "sha256:2f2301e797521b23e4d2585a0a3d7b5e50fdddaaf7e7d6773ea26ddb17c213ab"},
 ]
 
 [package.dependencies]
@@ -1355,4 +1344,4 @@ dev = ["doc8", "flake8", "flake8-import-order", "rstcheck[sphinx]", "sphinx"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "4903021d87ddedc2148d8441e9ed75a38d8cfa7f8657c7070c45ee7b6732e94a"
+content-hash = "6cc0f10caa367f5d20061b0923b0bdfd0685d82003de9e7e947fe762f47590d8"
