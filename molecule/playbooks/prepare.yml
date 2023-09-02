@@ -2,7 +2,7 @@
 - name: Prepare
   hosts: molecule
   vars:
-    version: 1.5.7106 # renovate: datasource=pypi dep_name=gdraheim/docker-systemctl-replacement
+    version: 1.5.7106 # renovate: datasource=pypi dep_name=docker-systemctl-replacement
   tasks:
     - name: Install python3-debian
       ansible.builtin.apt:
