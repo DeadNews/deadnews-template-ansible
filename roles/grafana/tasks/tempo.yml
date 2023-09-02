@@ -15,9 +15,14 @@
 - name: Install Grafana Tempo
   ansible.builtin.apt:
     name: tempo
-    state: present
+    state: latest
     update_cache: true
   notify: (Handler) Restart Grafana Tempo service
+
+- name: Hold Grafana Tempo
+  ansible.builtin.dpkg_selections:
+    name: tempo
+    selection: hold
 
 - name: Replace config file for Grafana Tempo
   ansible.builtin.template:
