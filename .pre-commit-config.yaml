@@ -23,7 +23,7 @@ repos:
       - id: prettier
 
   - repo: https://github.com/crate-ci/typos
-    rev: v1.16.9
+    rev: v1.16.12
     hooks:
       - id: typos
 
@@ -33,6 +33,16 @@ repos:
       - id: check-github-workflows
       - id: check-renovate
 
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.6.26
+    hooks:
+      - id: actionlint
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.0
+    hooks:
+      - id: gitleaks
+
   - repo: https://github.com/python-poetry/poetry
     rev: 1.6.1
     hooks:
@@ -41,7 +51,7 @@ repos:
         args: [--check]
 
   - repo: https://github.com/ansible/ansible-lint
-    rev: v6.18.0
+    rev: v6.20.0
     hooks:
       - id: ansible-lint
-        args: [--write]
+        args: [--fix]
