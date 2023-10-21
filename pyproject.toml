@@ -9,7 +9,7 @@ python = "^3.10"
 ansible-core = "^2.15.3"
 
 [tool.poetry.group.lint.dependencies]
-ansible-lint = { version = "^6.20.3", markers = "platform_system != 'Windows'" }
+ansible-lint = { version = "^6.21.1", markers = "platform_system != 'Windows'" }
 
 [tool.poetry.group.test.dependencies]
 molecule = "^6.0.2"
