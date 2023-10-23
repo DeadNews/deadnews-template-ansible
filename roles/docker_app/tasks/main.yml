@@ -1,0 +1,20 @@
+---
+# Deploy Docker App
+
+- name: Install Docker
+  ansible.builtin.include_role:
+    name: docker
+
+- name: Setup Docker App
+  become: true
+  become_user: docker-user
+  become_flags: --login
+  ansible.builtin.import_role:
+    name: docker_compose
+  vars:
+    docker_compose_project: docker-app
+    docker_compose_env: files/.env
+    docker_compose_source: files/docker-compose.yml
+    docker_compose_target_dir: /opt/docker-compose
+    docker_compose_verify_urls:
+      - http://127.0.0.1:1271/health

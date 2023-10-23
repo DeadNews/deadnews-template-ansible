@@ -1,0 +1,12 @@
+---
+platforms:
+  - name: molecule-image
+    # image: ${MOLECULE_IMAGE:-python}
+    image: ghcr.io/nestybox/ubuntu-jammy-systemd
+    # runtime: sysbox-runc
+
+provisioner:
+  playbooks:
+    create: ../../../../molecule/playbooks/create.yml
+    destroy: ../../../../molecule/playbooks/destroy.yml
+    prepare: ../../../../molecule/playbooks/prepare.yml

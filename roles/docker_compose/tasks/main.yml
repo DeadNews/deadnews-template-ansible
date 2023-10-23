@@ -1,0 +1,72 @@
+---
+# Deploy Docker Compose projects (with docker compose v2)
+
+- name: Create directory for Docker Compose project {{ docker_compose_project }}
+  ansible.builtin.file:
+    path: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
+    state: directory
+    mode: "0700"
+    recurse: true
+
+- name: Copy Docker Compose project {{ docker_compose_project }}
+  ansible.builtin.copy:
+    src: "{{ docker_compose_source }}"
+    dest: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}/docker-compose.yml"
+    mode: "0600"
+
+- name: Copy environment file for Docker Compose project {{ docker_compose_project }}
+  ansible.builtin.copy:
+    src: "{{ docker_compose_env }}"
+    dest: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}/.env"
+    mode: "0600"
+  when: docker_compose_env is defined
+
+- name: Pull images for Docker Compose project {{ docker_compose_project }}
+  block:
+    - name: Pull images for Docker Compose project {{ docker_compose_project }}
+      ansible.builtin.command:
+        cmd: docker compose pull
+        chdir: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
+      register: docker_compose_pull
+      changed_when: "'layers' in docker_compose_pull.stderr"
+  rescue:
+    - name: List images for Docker Compose project {{ docker_compose_project }}
+      ansible.builtin.command:
+        cmd: docker compose images --format json
+        chdir: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
+      register: docker_compose_images
+      changed_when: false
+
+    - name: Print images for Docker Compose project {{ docker_compose_project }}
+      ansible.builtin.debug:
+        var: docker_compose_images.stdout
+
+- name: Ensure Docker Compose project is up-to-date and running ー {{ docker_compose_project }}
+  block:
+    - name: Ensure Docker Compose project is up-to-date and running ー {{ docker_compose_project }}
+      ansible.builtin.command:
+        cmd: docker compose up -d
+        chdir: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
+      register: docker_compose_up
+      changed_when: "'Started' in docker_compose_up.stderr"
+  rescue:
+    - name: List containers for Docker Compose project {{ docker_compose_project }}
+      ansible.builtin.command:
+        cmd: docker compose ps --format json
+        chdir: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
+      register: docker_compose_ps
+      changed_when: false
+
+    - name: Print containers for Docker Compose project {{ docker_compose_project }}
+      ansible.builtin.debug:
+        var: docker_compose_ps.stdout
+
+- name: Verify that Docker Compose project is responding ー {{ docker_compose_project }}
+  ansible.builtin.uri:
+    url: "{{ item }}"
+  register: docker_compose_verify
+  retries: 5
+  delay: 8
+  until: docker_compose_verify is not failed
+  loop: "{{ docker_compose_verify_urls }}"
+  when: docker_compose_verify_urls is defined
