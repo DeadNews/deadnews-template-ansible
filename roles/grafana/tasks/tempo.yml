@@ -17,6 +17,7 @@
     name: tempo
     state: latest
     update_cache: true
+    allow_change_held_packages: true
   notify: (Handler) Restart Grafana Tempo service
 
 - name: Hold Grafana Tempo
