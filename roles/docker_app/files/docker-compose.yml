@@ -1,8 +1,0 @@
-version: "3"
-services:
-  web:
-    image: ghcr.io/deadnews/deadnews-template-go:2.0.1@sha256:5acf9cc0e8f2b5cad3156388f8d87dc075ea1ec52eda29bb8148aff69fe6c2e4
-    ports:
-      - ${PORT}:${PORT}
-    environment:
-      PORT: "${PORT}"

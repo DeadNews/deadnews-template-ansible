@@ -1,9 +1,0 @@
----
-- name: Deploy Docker App
-  hosts: localhost
-  become: false
-
-  tasks:
-    - name: Setup docker_app
-      ansible.builtin.include_role:
-        name: docker_app

@@ -60,9 +60,6 @@ jobs:
       - name: Install ansible-galaxy deps
         run: poetry run ansible-galaxy install -r requirements.yml
 
-      - name: Run docker info
-        run: docker info
-
       - name: Run tests
         run: poetry run pytest
         env:
