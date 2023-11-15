@@ -6,6 +6,9 @@
 artifacts/
 vault.key
 
+# vagrant
+.vagrant
+
 # Unit test / coverage reports
 .cache
 .pytest_cache
