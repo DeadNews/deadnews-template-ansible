@@ -2,7 +2,7 @@
 - name: Converge
   hosts: molecule
   tasks:
-    - name: Install Grafana Tempo
+    - name: Install Grafana Loki
       ansible.builtin.include_role:
         name: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
-        tasks_from: tempo
+        tasks_from: loki

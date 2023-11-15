@@ -12,6 +12,6 @@ poetry install --no-root --sync
 poetry run ansible-galaxy install -r requirements.yml
 ```
 
-# Roles
+## Roles
 
 - <https://github.com/DeadNews/playground-ansible>

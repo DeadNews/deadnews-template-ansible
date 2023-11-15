@@ -16,3 +16,6 @@ lint:
 
 tests:
 	poetry run pytest
+
+test-grafana-loki:
+	pushd roles/grafana && poetry run molecule test -s loki; popd

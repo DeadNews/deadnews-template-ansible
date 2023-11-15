@@ -1,7 +1,7 @@
 ---
-- name: (Handler) Restart Grafana Tempo service
+- name: (Handler) Restart Grafana Loki service
   ansible.builtin.systemd:
-    name: tempo
+    name: loki
     enabled: true
     state: restarted
     daemon_reload: true
