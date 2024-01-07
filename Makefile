@@ -1,20 +1,26 @@
+.PHONY: test
+
+install-all: install pc-install
+
 install:
 	poetry install --no-root --sync
 	poetry run ansible-galaxy install -r requirements.yml
 
-poetry-up:
+pc-install:
+	pre-commit install
+
+update-latest:
 	poetry up --latest
 
-pre-commit-up:
-	pre-commit autoupdate
+checks: pc-run
 
-pre-commit-run:
+pc-run:
 	pre-commit run -a
 
 lint:
 	poetry run ansible-lint
 
-tests:
+test:
 	poetry run pytest
 
 test-grafana-loki:
