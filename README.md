@@ -8,8 +8,7 @@
 ## Install
 
 ```sh
-poetry install --no-root --sync
-poetry run ansible-galaxy install -r requirements.yml
+make install
 ```
 
 ## Roles
