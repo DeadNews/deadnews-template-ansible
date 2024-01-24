@@ -1,8 +1,9 @@
 ---
+# Test Ansible Roles with Molecule and Docker
+
 - name: Converge
-  hosts: molecule
+  hosts: all
   tasks:
-    - name: Install Grafana Loki
+    - name: Test role
       ansible.builtin.include_role:
         name: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
-        tasks_from: loki
