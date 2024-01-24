@@ -24,7 +24,7 @@ jobs:
 
       - name: Cache ansible reqs
         id: cache-reqs
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           key: reqs-${{ runner.os }}-${{ hashFiles('requirements.yml') }}
           path: ${{ env.ANSIBLE_HOME }}/collections
@@ -58,7 +58,7 @@ jobs:
 
       - name: Cache ansible reqs
         id: cache-reqs
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           key: reqs-${{ runner.os }}-${{ hashFiles('requirements.yml') }}
           path: ${{ env.ANSIBLE_HOME }}/collections
