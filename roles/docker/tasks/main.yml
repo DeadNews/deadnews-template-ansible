@@ -1,0 +1,133 @@
+---
+# Install Docker in rootless mode
+# See: https://rootlesscontaine.rs
+
+- name: Check distribution compatibility
+  ansible.builtin.assert:
+    that:
+      - ansible_os_family == 'Debian'
+
+- name: Add Docker repository
+  ansible.builtin.deb822_repository:
+    name: docker
+    types: [deb]
+    architectures: amd64
+    uris: https://download.docker.com/linux/{{ ansible_distribution | lower }}
+    signed_by: https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg
+    suites: ["{{ ansible_distribution_release | lower }}"]
+    components: [stable]
+    state: present
+
+- name: Uninstall Distro maintaine distributions of Docker
+  ansible.builtin.apt:
+    name:
+      - docker.io
+      - docker-doc
+      - docker-compose
+      - podman-docker
+      - containerd
+    state: absent
+    autoremove: false
+
+- name: Install Docker
+  ansible.builtin.apt:
+    name:
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-ce
+      - docker-ce-cli
+      - docker-ce-rootless-extras
+      - docker-compose-plugin
+    state: latest
+    update_cache: true
+
+- name: Install Debian family packages
+  ansible.builtin.apt:
+    name:
+      - acl
+      - dbus-user-session
+      - uidmap
+    state: present
+
+- name: Add group 'docker-group'
+  ansible.builtin.group:
+    name: docker-group
+    gid: 800
+    system: true
+    state: present
+  register: docker_group
+
+- name: Add user 'docker-user'
+  ansible.builtin.user:
+    name: docker-user
+    comment: docker engine owner
+    uid: 800
+    group: "{{ docker_group.name }}"
+    home: /var/lib/docker-user
+    shell: /usr/bin/bash
+    system: true
+    state: present
+  register: docker_user
+
+- name: Print Docker user info
+  ansible.builtin.debug:
+    var: docker_user
+    verbosity: 1
+
+- name: Assign a subordinate IDs range
+  ansible.builtin.lineinfile:
+    path: "{{ item }}"
+    line: "{{ docker_user.name }}:231072:65536"
+  with_items:
+    - /etc/subuid
+    - /etc/subgid
+
+- name: Enable a persistent user session for the Docker user
+  ansible.builtin.command:
+    cmd: loginctl enable-linger {{ docker_user.name }}
+    creates: /var/lib/systemd/linger/{{ docker_user.name }}
+
+- name: Set environment variables in bash_profile for the Docker user
+  ansible.builtin.copy:
+    src: files/bash_profile.sh
+    dest: "{{ docker_user.home }}/.bash_profile"
+    owner: "{{ docker_user.name }}"
+    group: "{{ docker_group.name }}"
+    mode: "0600"
+
+- name: Install Docker in rootless mode
+  become: true
+  become_user: "{{ docker_user.name }}"
+  become_flags: --login
+  block:
+    - name: Run the rootless docker checker
+      ansible.builtin.command:
+        cmd: /usr/bin/dockerd-rootless-setuptool.sh check
+        creates: "{{ docker_user.home }}/.docker/config.json"
+
+    - name: Run the rootless docker installer
+      ansible.builtin.command:
+        cmd: /usr/bin/dockerd-rootless-setuptool.sh install
+        creates: "{{ docker_user.home }}/.docker/config.json"
+
+    - name: Ensure that docker.service is started
+      ansible.builtin.systemd:
+        name: docker.service
+        state: started
+        enabled: true
+        scope: user
+
+    - name: Verify that Docker daemon is responding
+      ansible.builtin.command:
+        cmd: docker info
+      changed_when: false
+
+- name: Make sure the root level Docker service is stopped and disabled
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: stopped
+    enabled: false
+    scope: system
+  loop:
+    - docker.service
+    - docker.socket

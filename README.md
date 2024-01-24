@@ -10,7 +10,3 @@
 ```sh
 make install
 ```
-
-## Roles
-
-- <https://github.com/DeadNews/playground-ansible>
