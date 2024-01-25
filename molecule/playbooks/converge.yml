@@ -1,0 +1,9 @@
+---
+# Test Ansible Roles with Molecule and Docker
+
+- name: Converge
+  hosts: all
+  tasks:
+    - name: Test role
+      ansible.builtin.include_role:
+        name: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"

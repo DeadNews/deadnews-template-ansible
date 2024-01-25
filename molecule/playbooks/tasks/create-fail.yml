@@ -1,4 +1,10 @@
 ---
+# Test Ansible Roles with Molecule and Docker
+
+- name: Print container info
+  ansible.builtin.debug:
+    var: item
+
 - name: Retrieve container log
   ansible.builtin.command:
     cmd: >-
@@ -11,4 +17,4 @@
 
 - name: Display container log
   ansible.builtin.fail:
-    msg: "{{ logfile_cmd.stderr }}"
+    var: logfile_cmd.stderr

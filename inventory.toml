@@ -1,7 +1,4 @@
-[all]
-children = ["local"]
-
-[all.vars]
+[local.vars]
 example = true
 
 [local.hosts]

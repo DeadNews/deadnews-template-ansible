@@ -23,5 +23,11 @@ lint:
 test:
 	poetry run pytest
 
-test-grafana-loki:
-	pushd roles/grafana && poetry run molecule test -s loki; popd
+test-ci:
+	poetry run pytest --molecule roles -m docker
+
+test-docker_app:
+	pushd roles/docker_app && poetry run molecule test --all; popd
+
+test-grafana_loki:
+	pushd roles/grafana_loki && poetry run molecule test --all; popd

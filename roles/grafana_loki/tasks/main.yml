@@ -1,6 +1,11 @@
 ---
 # Install Grafana Loki (Example)
 
+- name: Check distribution compatibility
+  ansible.builtin.assert:
+    that:
+      - ansible_os_family == 'Debian'
+
 - name: Add Grafana repository
   ansible.builtin.deb822_repository:
     name: grafana

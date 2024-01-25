@@ -1,10 +1,14 @@
 ---
+driver:
+  name: docker
+
 platforms:
-  - name: molecule-image
+  - name: ${MOLECULE_IMAGE:-python}
     image: ${MOLECULE_IMAGE:-python}
 
 provisioner:
   playbooks:
+    converge: ../../../../molecule/playbooks/converge.yml
     create: ../../../../molecule/playbooks/create.yml
     destroy: ../../../../molecule/playbooks/destroy.yml
     prepare: ../../../../molecule/playbooks/prepare.yml
