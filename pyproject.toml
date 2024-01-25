@@ -20,3 +20,4 @@ pytest-ansible = "^24.1.2"
 [tool.pytest.ini_options]
 addopts = "--verbose"
 testpaths = ["tests"]
+markers = ["docker", "molecule", "no_driver", "vagrant"]

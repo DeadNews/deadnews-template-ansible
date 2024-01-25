@@ -21,7 +21,10 @@ lint:
 	poetry run ansible-lint
 
 test:
-	poetry run pytest --molecule_unavailable_driver=skip
+	poetry run pytest
+
+test-ci:
+	poetry run pytest --molecule roles -m docker
 
 test-docker_app:
 	pushd roles/docker_app && poetry run molecule test --all; popd

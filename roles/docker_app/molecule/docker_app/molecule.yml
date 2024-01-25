@@ -13,3 +13,6 @@ platforms:
 
 provisioner:
   name: ansible
+
+markers:
+  - vagrant

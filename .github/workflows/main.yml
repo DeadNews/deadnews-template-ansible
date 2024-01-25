@@ -78,6 +78,6 @@ jobs:
         run: poetry run ansible-galaxy install -r requirements.yml
 
       - name: Run tests
-        run: make test
+        run: make test-ci
         env:
           MOLECULE_IMAGE: ${{ matrix.molecule-image }}

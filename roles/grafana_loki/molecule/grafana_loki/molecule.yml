@@ -1,4 +1,7 @@
 ---
+driver:
+  name: docker
+
 platforms:
   - name: ${MOLECULE_IMAGE:-python}
     image: ${MOLECULE_IMAGE:-python}
