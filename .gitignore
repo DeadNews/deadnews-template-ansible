@@ -6,6 +6,9 @@
 artifacts/
 vault.key
 
+# ansible galaxy
+collections/
+
 # vagrant
 .vagrant
 

@@ -6,6 +6,9 @@ exclude_paths:
   - .prettierrc.yaml
 
 skip_list:
+  - galaxy[no-changelog]
+  - galaxy[no-runtime]
+  - galaxy[version-incorrect]
   - name[play]
   - package-latest
   - yaml[indentation]
