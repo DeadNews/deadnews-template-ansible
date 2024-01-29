@@ -1,7 +1,7 @@
 ---
 # Deploy Docker App
 
-- name: Install Docker
+- name: Install Docker in rootless mode
   ansible.builtin.include_role:
     name: docker
 
