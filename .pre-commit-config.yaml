@@ -52,8 +52,7 @@ repos:
     rev: 1.7.1
     hooks:
       - id: poetry-check
-      - id: poetry-lock
-        args: [--check]
+        args: [--lock]
 
   - repo: https://github.com/ansible/ansible-lint
     rev: v6.22.2

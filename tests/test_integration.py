@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """Tests for molecule scenarios."""
 from pytest_ansible.molecule import MoleculeScenario # type: ignore[import-untyped]
 
