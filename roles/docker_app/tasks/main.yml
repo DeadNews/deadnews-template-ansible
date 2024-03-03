@@ -15,9 +15,9 @@
     name: docker_compose
   vars:
     docker_compose_project: docker-app
+    docker_compose_target_dir: ~/docker-compose
     docker_compose_source: files/docker-compose.yml
     docker_compose_env: files/.env
-    docker_compose_target_dir: ~/docker-compose
 
 - name: Verify that Docker App is responding
   ansible.builtin.uri:

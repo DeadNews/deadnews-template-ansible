@@ -20,6 +20,14 @@
     dest: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}/docker-compose.yml"
     mode: "0600"
 
+- name: Copy additional files for Docker Compose project {{ docker_compose_project }}
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}/{{ item.split('/')[-1] }}"
+    mode: "0600"
+  loop: "{{ docker_compose_copy_files }}"
+  when: docker_compose_copy_files is defined
+
 - name: Copy environment file for Docker Compose project {{ docker_compose_project }}
   ansible.builtin.copy:
     src: "{{ docker_compose_env }}"
