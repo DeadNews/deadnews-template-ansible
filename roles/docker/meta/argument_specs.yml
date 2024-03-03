@@ -1,0 +1,9 @@
+---
+argument_specs:
+  main:
+    short_description: The main entry point for the docker role.
+    options:
+      docker_expose_privileged_ports:
+        type: bool
+        default: false
+        description: Expose privileged ports (< 1024) on rootlesskit binary.

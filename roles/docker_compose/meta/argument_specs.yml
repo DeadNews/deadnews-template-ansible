@@ -10,13 +10,13 @@ argument_specs:
 
       docker_compose_source:
         type: str
-        required: true
+        default: files/docker-compose.yml
         description: The local path to the Docker Compose file to copy to the remote server.
 
       docker_compose_target_dir:
         type: str
-        required: true
-        description: The directory where the Docker Compose projects should be copied to.
+        default: ~/docker-compose
+        description: The directory where the Docker Compose projects should create respective directories.
 
       docker_compose_env:
         type: str

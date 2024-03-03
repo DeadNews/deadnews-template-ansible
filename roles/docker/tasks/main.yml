@@ -110,6 +110,23 @@
         cmd: /usr/bin/dockerd-rootless-setuptool.sh install
         creates: "{{ docker_user.home }}/.docker/config.json"
 
+- name: Expose privileged ports (< 1024) on rootlesskit binary
+  community.general.capabilities:
+    path: /usr/bin/rootlesskit
+    capability: cap_net_bind_service=ep
+    state: present
+  when: docker_expose_privileged_ports
+  notify:
+    - (Handler) Restart rootless docker.service
+
+- name: Flush handlers after deployment
+  ansible.builtin.meta: flush_handlers
+
+- name: Verify that Docker daemon is responding
+  become: true
+  become_user: "{{ docker_user.name }}"
+  become_flags: --login
+  block:
     - name: Ensure that docker.service is started
       ansible.builtin.systemd:
         name: docker.service

@@ -4,6 +4,8 @@
 - name: Install Docker in rootless mode
   ansible.builtin.include_role:
     name: docker
+  vars:
+    docker_expose_privileged_ports: false
 
 - name: Setup Docker App
   become: true
