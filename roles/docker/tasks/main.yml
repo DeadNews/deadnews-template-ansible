@@ -49,73 +49,74 @@
       - uidmap
     state: present
 
-- name: Add group 'docker-group'
+- name: Add group {{ docker_group }}
   ansible.builtin.group:
-    name: docker-group
-    gid: 800
+    name: "{{ docker_group }}"
+    gid: "{{ docker_gid }}"
     system: true
     state: present
-  register: docker_group
 
-- name: Add user 'docker-user'
+- name: Add user {{ docker_user }}
   ansible.builtin.user:
-    name: docker-user
+    name: "{{ docker_user }}"
     comment: docker engine owner
-    uid: 800
-    group: "{{ docker_group.name }}"
-    home: /var/lib/docker-user
+    uid: "{{ docker_uid }}"
+    group: "{{ docker_group }}"
+    home: /var/lib/{{ docker_user }}
     shell: /usr/bin/bash
     system: true
     state: present
-  register: docker_user
+  register: docker_user_info
 
 - name: Print Docker user info
   ansible.builtin.debug:
-    var: docker_user
+    var: docker_user_info
     verbosity: 1
 
 - name: Assign a subordinate IDs range
   ansible.builtin.lineinfile:
     path: "{{ item }}"
-    line: "{{ docker_user.name }}:231072:65536"
+    line: "{{ docker_user }}:231072:65536"
   with_items:
     - /etc/subuid
     - /etc/subgid
 
 - name: Enable a persistent user session for the Docker user
   ansible.builtin.command:
-    cmd: loginctl enable-linger {{ docker_user.name }}
-    creates: /var/lib/systemd/linger/{{ docker_user.name }}
+    cmd: loginctl enable-linger {{ docker_user }}
+    creates: /var/lib/systemd/linger/{{ docker_user }}
 
 - name: Set environment variables in bash_profile for the Docker user
   ansible.builtin.copy:
     src: files/bash_profile.sh
-    dest: "{{ docker_user.home }}/.bash_profile"
-    owner: "{{ docker_user.name }}"
-    group: "{{ docker_group.name }}"
+    dest: "{{ docker_user_home }}/.bash_profile"
+    owner: "{{ docker_user }}"
+    group: "{{ docker_group }}"
     mode: "0600"
 
 - name: Install Docker in rootless mode
   become: true
-  become_user: "{{ docker_user.name }}"
+  become_user: "{{ docker_user }}"
   become_flags: --login
   block:
     - name: Run the rootless docker checker
       ansible.builtin.command:
         cmd: /usr/bin/dockerd-rootless-setuptool.sh check
-        creates: "{{ docker_user.home }}/.docker/config.json"
+        creates: "{{ docker_user_home }}/.docker/config.json"
 
     - name: Run the rootless docker installer
       ansible.builtin.command:
         cmd: /usr/bin/dockerd-rootless-setuptool.sh install
-        creates: "{{ docker_user.home }}/.docker/config.json"
+        creates: "{{ docker_user_home }}/.docker/config.json"
 
 - name: Expose privileged ports (< 1024) on rootlesskit binary
   community.general.capabilities:
     path: /usr/bin/rootlesskit
     capability: cap_net_bind_service=ep
     state: present
-  when: docker_expose_privileged_ports
+  when:
+    - docker_expose_privileged_ports is defined
+    - docker_expose_privileged_ports
   notify:
     - (Handler) Restart rootless docker.service
 
@@ -124,7 +125,7 @@
 
 - name: Verify that Docker daemon is responding
   become: true
-  become_user: "{{ docker_user.name }}"
+  become_user: "{{ docker_user }}"
   become_flags: --login
   block:
     - name: Ensure that docker.service is started

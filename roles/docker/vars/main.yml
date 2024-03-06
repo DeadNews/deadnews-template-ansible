@@ -1,0 +1,7 @@
+---
+docker_expose_privileged_ports: false
+docker_gid: 800
+docker_group: docker-group
+docker_uid: 800
+docker_user_home: /var/lib/{{ docker_user }}
+docker_user: docker-user
