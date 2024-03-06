@@ -29,17 +29,28 @@
     state: absent
     autoremove: false
 
-- name: Install Docker
-  ansible.builtin.apt:
-    name:
+- name: Set Docker packages
+  ansible.builtin.set_fact:
+    docker_pkgs:
       - containerd.io
       - docker-buildx-plugin
       - docker-ce
       - docker-ce-cli
       - docker-ce-rootless-extras
       - docker-compose-plugin
+
+- name: Install Docker packages
+  ansible.builtin.apt:
+    name: "{{ docker_pkgs }}"
     state: latest
     update_cache: true
+    allow_change_held_packages: true
+
+- name: Hold Docker packages
+  ansible.builtin.dpkg_selections:
+    name: "{{ item }}"
+    selection: hold
+  with_items: "{{ docker_pkgs }}"
 
 - name: Install Debian family packages
   ansible.builtin.apt:
