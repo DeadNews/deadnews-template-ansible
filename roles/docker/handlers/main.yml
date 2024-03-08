@@ -1,7 +1,7 @@
 ---
 - name: (Handler) Restart rootless docker.service
   become: true
-  become_user: "{{ docker_user }}"
+  become_user: "{{ docker_rootless_user }}"
   become_flags: --login
   ansible.builtin.systemd:
     name: docker.service

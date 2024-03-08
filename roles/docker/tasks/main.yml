@@ -1,11 +1,16 @@
 ---
-# Install Docker in rootless mode
-# See: https://rootlesscontaine.rs
+# Install Docker on Debian-family OS
 
 - name: Check distribution compatibility
   ansible.builtin.assert:
     that:
       - ansible_os_family == 'Debian'
+
+- name: Ensure the deb822_repository module requirements is installed
+  ansible.builtin.apt:
+    name: python3-debian
+    state: present
+    update_cache: true
 
 - name: Add Docker repository
   ansible.builtin.deb822_repository:
@@ -29,7 +34,7 @@
     state: absent
     autoremove: false
 
-- name: Set Docker packages
+- name: Set Docker packages list
   ansible.builtin.set_fact:
     docker_pkgs:
       - containerd.io
@@ -51,112 +56,22 @@
     name: "{{ item }}"
     selection: hold
   with_items: "{{ docker_pkgs }}"
+  when:
+    - docker_hold_packages is defined
+    - docker_hold_packages
 
-- name: Install Debian family packages
-  ansible.builtin.apt:
-    name:
-      - acl
-      - dbus-user-session
-      - uidmap
-    state: present
-
-- name: Add group {{ docker_group }}
-  ansible.builtin.group:
-    name: "{{ docker_group }}"
-    gid: "{{ docker_gid }}"
-    system: true
-    state: present
-
-- name: Add user {{ docker_user }}
-  ansible.builtin.user:
-    name: "{{ docker_user }}"
-    comment: docker engine owner
-    uid: "{{ docker_uid }}"
-    group: "{{ docker_group }}"
-    home: /var/lib/{{ docker_user }}
-    shell: /usr/bin/bash
-    system: true
-    state: present
-  register: docker_user_info
-
-- name: Print Docker user info
-  ansible.builtin.debug:
-    var: docker_user_info
-    verbosity: 1
-
-- name: Assign a subordinate IDs range
-  ansible.builtin.lineinfile:
-    path: "{{ item }}"
-    line: "{{ docker_user }}:231072:65536"
-  with_items:
-    - /etc/subuid
-    - /etc/subgid
-
-- name: Enable a persistent user session for the Docker user
-  ansible.builtin.command:
-    cmd: loginctl enable-linger {{ docker_user }}
-    creates: /var/lib/systemd/linger/{{ docker_user }}
-
-- name: Set environment variables in bash_profile for the Docker user
-  ansible.builtin.copy:
-    src: files/bash_profile.sh
-    dest: "{{ docker_user_home }}/.bash_profile"
-    owner: "{{ docker_user }}"
-    group: "{{ docker_group }}"
-    mode: "0600"
+- name: Install Docker in rootfull mode
+  ansible.builtin.include_role:
+    name: docker
+    tasks_from: rootfull
+  when:
+    - docker_rootless is defined
+    - not docker_rootless
 
 - name: Install Docker in rootless mode
-  become: true
-  become_user: "{{ docker_user }}"
-  become_flags: --login
-  block:
-    - name: Run the rootless docker checker
-      ansible.builtin.command:
-        cmd: /usr/bin/dockerd-rootless-setuptool.sh check
-        creates: "{{ docker_user_home }}/.docker/config.json"
-
-    - name: Run the rootless docker installer
-      ansible.builtin.command:
-        cmd: /usr/bin/dockerd-rootless-setuptool.sh install
-        creates: "{{ docker_user_home }}/.docker/config.json"
-
-- name: Expose privileged ports (< 1024) on rootlesskit binary
-  community.general.capabilities:
-    path: /usr/bin/rootlesskit
-    capability: cap_net_bind_service=ep
-    state: present
+  ansible.builtin.include_role:
+    name: docker
+    tasks_from: rootless
   when:
-    - docker_expose_privileged_ports is defined
-    - docker_expose_privileged_ports
-  notify:
-    - (Handler) Restart rootless docker.service
-
-- name: Flush handlers after deployment
-  ansible.builtin.meta: flush_handlers
-
-- name: Verify that Docker daemon is responding
-  become: true
-  become_user: "{{ docker_user }}"
-  become_flags: --login
-  block:
-    - name: Ensure that docker.service is started
-      ansible.builtin.systemd:
-        name: docker.service
-        state: started
-        enabled: true
-        scope: user
-
-    - name: Verify that Docker daemon is responding
-      ansible.builtin.command:
-        cmd: docker info
-      changed_when: false
-
-- name: Make sure the root level Docker service is stopped and disabled
-  ansible.builtin.systemd:
-    name: "{{ item }}"
-    state: stopped
-    enabled: false
-    scope: system
-  loop:
-    - docker.service
-    - docker.socket
+    - docker_rootless is defined
+    - docker_rootless
