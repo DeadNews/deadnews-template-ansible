@@ -14,7 +14,7 @@ ansible-lint = { version = "^24.2.0", markers = "platform_system != 'Windows'" }
 [tool.poetry.group.test.dependencies]
 molecule = "^24.2.0"
 molecule-plugins = { version = "^23.5.3", extras = ["docker", "vagrant"] }
-pytest = "^8.0.0"
+pytest = "^8.0.2"
 pytest-ansible = "^24.1.2"
 
 [tool.pytest.ini_options]
