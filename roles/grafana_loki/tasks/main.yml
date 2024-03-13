@@ -6,6 +6,12 @@
     that:
       - ansible_os_family == 'Debian'
 
+- name: Ensure the deb822_repository module requirements is installed
+  ansible.builtin.apt:
+    name: python3-debian
+    state: present
+    update_cache: true
+
 - name: Add Grafana repository
   ansible.builtin.deb822_repository:
     name: grafana
