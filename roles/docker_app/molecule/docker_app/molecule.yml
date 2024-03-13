@@ -5,11 +5,11 @@ driver:
     name: virtualbox
 
 platforms:
-  - name: ubuntu-22
-    box: ubuntu/jammy64
-    config_options:
-      vm.boot_timeout: 600
-    memory: 1024
+  # - name: ubuntu-22
+  #   box: ubuntu/jammy64
+  #   config_options:
+  #     vm.boot_timeout: 600
+  #   memory: 1024
   - name: debian-12
     box: debian/bookworm64
     config_options:

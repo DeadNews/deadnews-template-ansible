@@ -1,0 +1,15 @@
+---
+# Test Ansible Roles with Molecule and Docker
+
+- name: Prepare
+  hosts: all
+
+  tasks:
+    - name: Install systemd
+      ansible.builtin.apt:
+        name:
+          - systemd
+          - systemd-sysv
+        state: present
+        update_cache: true
+      when: ansible_os_family == "Debian"
