@@ -54,6 +54,11 @@ repos:
       - id: poetry-check
         args: [--lock]
 
+  - repo: https://github.com/aristanetworks/j2lint
+    rev: v1.1.0
+    hooks:
+      - id: j2lint
+
   - repo: https://github.com/ansible/ansible-lint
     rev: v24.2.0
     hooks:

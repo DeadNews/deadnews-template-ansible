@@ -5,7 +5,7 @@
   ansible.builtin.include_role:
     name: docker
   vars:
-    docker_expose_privileged_ports: false
+    docker_rootless_expose_privileged_ports: false
 
 - name: Setup Docker App
   become: true
