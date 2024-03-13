@@ -4,11 +4,12 @@ driver:
 
 platforms:
   - name: ${MOLECULE_IMAGE:-python}
-    image: ${MOLECULE_IMAGE:-python}
+    # image: ${MOLECULE_IMAGE:-python}
+    image: geerlingguy/docker-debian12-ansible:latest
 
 provisioner:
   playbooks:
     converge: ../../../../molecule/playbooks/converge.yml
     create: ../../../../molecule/playbooks/create.yml
     destroy: ../../../../molecule/playbooks/destroy.yml
-    prepare: ../../../../molecule/playbooks/prepare.yml
+    prepare: ../../../../molecule/playbooks/prepare-systemctl.yml
