@@ -14,11 +14,11 @@
     - name: Install systemctl.py
       ansible.builtin.pip:
         name: docker-systemctl-replacement=={{ version }}
-        extra_args: --target=/tmp/dsr
+        extra_args: --target=/docker-systemctl-replacement/
 
     - name: Replace systemctl
       ansible.builtin.copy:
-        src: /tmp/dsr/systemctl.py
+        src: /docker-systemctl-replacement/systemctl.py
         dest: /usr/bin/systemctl
         remote_src: true
         mode: "0755"
