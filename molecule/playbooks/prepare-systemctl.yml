@@ -27,6 +27,15 @@
       ansible.builtin.debug:
         var: pip_install
 
+    - name: Check if systemctl.py is installed
+      ansible.builtin.stat:
+        path: /systemctl-replacement/systemctl.py
+      register: systemctl_stat
+
+    - name: Ensure systemctl.py
+      ansible.builtin.debug:
+        var: systemctl_stat
+
     - name: Replace systemctl
       ansible.builtin.copy:
         src: /systemctl-replacement/systemctl.py
