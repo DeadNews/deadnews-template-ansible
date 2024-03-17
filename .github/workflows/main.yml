@@ -12,7 +12,8 @@ permissions:
   contents: read
 
 env:
-  ANSIBLE_COLLECTIONS_PATH: .ansible
+  ANSIBLE_HOME: ~/.ansible
+  ANSIBLE_COLLECTIONS_PATH: ~/.ansible/collections
   PY_COLORS: "1"
 
 jobs:
