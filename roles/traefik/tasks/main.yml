@@ -7,7 +7,7 @@
   vars:
     docker_rootless: false
 
-- name: Setup Traefik
+- name: Deploy Traefik
   ansible.builtin.import_role:
     name: deadnews.util.docker_compose
   vars:
