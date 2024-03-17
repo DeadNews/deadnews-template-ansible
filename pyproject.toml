@@ -6,16 +6,18 @@ authors = ["DeadNews <aurczpbgr@mozmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-ansible-core = "^2.16.2"
+ansible-core = "^2.16.4"
 
 [tool.poetry.group.lint.dependencies]
-ansible-lint = { version = "^24.2.0", markers = "platform_system != 'Windows'" }
+ansible-lint = { version = "^24.2.1", markers = "platform_system != 'Windows'" }
 
 [tool.poetry.group.test.dependencies]
 molecule = "^24.2.0"
 molecule-plugins = { version = "^23.5.3", extras = ["docker", "vagrant"] }
 pytest = "^8.1.1"
 pytest-ansible = "^24.1.2"
+pytest-forked = "^1.6.0"
+pytest-xdist = "^3.5.0"
 
 [tool.pytest.ini_options]
 addopts = "--verbose"
