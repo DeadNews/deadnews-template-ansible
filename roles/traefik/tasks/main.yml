@@ -1,0 +1,24 @@
+---
+# Deploy Traefik
+
+- name: Install Docker
+  ansible.builtin.import_role:
+    name: deadnews.util.docker
+  vars:
+    docker_rootless: false
+
+- name: Setup Traefik
+  ansible.builtin.import_role:
+    name: deadnews.util.docker_compose
+  vars:
+    docker_compose_project: traefik
+    docker_compose_target_dir: ~/docker-compose
+    docker_compose_source: files/docker-compose.yml
+
+- name: Verify that Traefik is responding
+  ansible.builtin.uri:
+    url: http://127.0.0.1:80/ping
+  register: traefik_verify
+  retries: 5
+  delay: 8
+  until: traefik_verify is not failed
