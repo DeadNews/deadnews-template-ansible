@@ -8,6 +8,7 @@ authors = ["DeadNews <aurczpbgr@mozmail.com>"]
 python = "^3.10"
 ansible-core = "^2.16.2"
 ansible-dev-environment = "^24.1.0"
+setuptools = "^69.2.0"
 
 [tool.poetry.group.lint.dependencies]
 ansible-lint = { version = "^24.2.0", markers = "platform_system != 'Windows'" }
