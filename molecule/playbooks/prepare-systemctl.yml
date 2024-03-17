@@ -1,5 +1,5 @@
 ---
-# Test Ansible Roles with Molecule and Docker
+# Install docker-systemctl-replacement to allow systemd commands to be run in a container
 
 - name: Prepare
   hosts: molecule
