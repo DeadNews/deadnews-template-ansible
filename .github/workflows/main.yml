@@ -46,13 +46,13 @@ jobs:
       - name: Lint code
         run: poetry run ansible-lint
 
-  tests:
+  test:
     name: Tests
-    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        molecule-image: [python]
+        molecule-distro: [debian12, ubuntu22]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
@@ -80,4 +80,4 @@ jobs:
       - name: Run tests
         run: make test-ci
         env:
-          MOLECULE_IMAGE: ${{ matrix.molecule-image }}
+          MOLECULE_DISTRO: ${{ matrix.molecule-distro }}
