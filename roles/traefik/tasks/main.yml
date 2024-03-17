@@ -17,7 +17,7 @@
 
 - name: Verify that Traefik is responding
   ansible.builtin.uri:
-    url: http://127.0.0.1:8000/ping
+    url: http://127.0.0.1:8080/ping
   register: traefik_verify
   retries: 5
   delay: 8
