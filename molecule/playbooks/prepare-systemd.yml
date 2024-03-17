@@ -5,6 +5,11 @@
   hosts: all
 
   tasks:
+    - name: Update apt cache
+      when: ansible_os_family == 'Debian'
+      ansible.builtin.apt:
+        update_cache: true
+
     - name: Install systemd
       when: ansible_os_family == "Debian"
       ansible.builtin.apt:
@@ -12,4 +17,3 @@
           - systemd
           - systemd-sysv
         state: present
-        update_cache: true

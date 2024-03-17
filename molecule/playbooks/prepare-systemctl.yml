@@ -6,6 +6,11 @@
   vars:
     version: 1.5.8066 # renovate: datasource=pypi dep_name=docker-systemctl-replacement
   tasks:
+    - name: Update apt cache
+      when: ansible_os_family == 'Debian'
+      ansible.builtin.apt:
+        update_cache: true
+
     - name: Install systemctl.py
       ansible.builtin.pip:
         name: docker-systemctl-replacement=={{ version }}
