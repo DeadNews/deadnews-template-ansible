@@ -1,25 +1,32 @@
 ---
-# Test Ansible Roles with Molecule and Docker
+# Install docker-systemctl-replacement to allow systemd commands to be run in a container
 
 - name: Prepare
-  hosts: molecule
+  hosts: all
   vars:
     version: 1.5.8066 # renovate: datasource=pypi dep_name=docker-systemctl-replacement
+
   tasks:
-    - name: Install python3-debian
+    - name: Update apt cache
+      when: ansible_os_family == 'Debian'
       ansible.builtin.apt:
-        name: python3-debian
-        state: present
-      when: ansible_os_family == "Debian"
+        update_cache: true
+
+    - name: Ensure directory for systemctl-replacement
+      ansible.builtin.file:
+        path: /systemctl-replacement/
+        state: directory
+        mode: "0755"
 
     - name: Install systemctl.py
       ansible.builtin.pip:
         name: docker-systemctl-replacement=={{ version }}
-        extra_args: --target=/tmp/dsr
+        extra_args: --target=/systemctl-replacement/
+      register: pip_install
 
     - name: Replace systemctl
       ansible.builtin.copy:
-        src: /tmp/dsr/systemctl.py
+        src: /systemctl-replacement/bin/systemctl.py
         dest: /usr/bin/systemctl
         remote_src: true
         mode: "0755"

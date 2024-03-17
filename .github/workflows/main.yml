@@ -13,6 +13,7 @@ permissions:
 
 env:
   ANSIBLE_HOME: ~/.ansible
+  ANSIBLE_COLLECTIONS_PATH: ~/.ansible/collections
   PY_COLORS: "1"
 
 jobs:
@@ -22,12 +23,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Cache ansible reqs
+      - name: Cache ansible requirements
         id: cache-reqs
         uses: actions/cache@v4
         with:
           key: reqs-${{ runner.os }}-${{ hashFiles('requirements.yml') }}
-          path: ${{ env.ANSIBLE_HOME }}/collections
+          path: ${{ env.ANSIBLE_COLLECTIONS_PATH }}
 
       - name: Install poetry
         run: pipx install poetry
@@ -37,31 +38,31 @@ jobs:
           cache: poetry
 
       - name: Install deps
-        run: poetry install
+        run: poetry install --no-root
 
-      - name: Install ansible-galaxy deps
+      - name: Install requirements
         if: steps.cache-reqs.outputs.cache-hit != 'true'
         run: poetry run ansible-galaxy install -r requirements.yml
 
       - name: Lint code
         run: poetry run ansible-lint
 
-  tests:
+  test:
     name: Tests
-    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        molecule-image: [python]
+        molecule-distro: [debian12, ubuntu2204]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Cache ansible reqs
+      - name: Cache ansible requirements
         id: cache-reqs
         uses: actions/cache@v4
         with:
           key: reqs-${{ runner.os }}-${{ hashFiles('requirements.yml') }}
-          path: ${{ env.ANSIBLE_HOME }}/collections
+          path: ${{ env.ANSIBLE_COLLECTIONS_PATH }}
 
       - name: Install poetry
         run: pipx install poetry
@@ -71,13 +72,13 @@ jobs:
           cache: poetry
 
       - name: Install deps
-        run: poetry install
+        run: poetry install --no-root
 
-      - name: Install ansible-galaxy deps
+      - name: Install requirements
         if: steps.cache-reqs.outputs.cache-hit != 'true'
         run: poetry run ansible-galaxy install -r requirements.yml
 
       - name: Run tests
         run: make test-ci
         env:
-          MOLECULE_IMAGE: ${{ matrix.molecule-image }}
+          MOLECULE_DISTRO: ${{ matrix.molecule-distro }}

@@ -1,20 +1,18 @@
-.PHONY: all clean test checks
+.PHONY: all clean default install update checks pc lint test
 
-install-all: install pc-install
+default: checks
 
 install:
-	poetry install --no-root --sync
+	pre-commit install
+	poetry install --sync --no-root
 	poetry run ansible-galaxy install -r requirements.yml
 
-pc-install:
-	pre-commit install
-
-update-latest:
+update:
 	poetry up --latest
 
-checks: pc-run
+checks: pc
 
-pc-run:
+pc:
 	pre-commit run -a
 
 lint:
@@ -24,10 +22,10 @@ test:
 	poetry run pytest
 
 test-ci:
-	poetry run pytest --molecule roles -m docker -p no:warnings
+	poetry run pytest -rP --molecule roles -m docker -p no:warnings
 
-test-docker_app:
-	pushd roles/docker_app && poetry run molecule test --all; popd
+test-traefik:
+	pushd roles/traefik && poetry run molecule test --all; popd
 
 test-grafana_loki:
 	pushd roles/grafana_loki && poetry run molecule test --all; popd

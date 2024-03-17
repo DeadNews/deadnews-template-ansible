@@ -10,3 +10,7 @@
 ```sh
 make install
 ```
+
+## Dependencies
+
+https://github.com/DeadNews/ansible-collection-util
