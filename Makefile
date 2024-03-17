@@ -4,8 +4,8 @@ default: checks
 
 install:
 	pre-commit install
-	poetry install --no-root --sync
-	poetry run ansible-galaxy install -r requirements.yml
+	poetry install --no-root
+	poetry run ade install -r requirements.yml
 
 update:
 	poetry up --latest
