@@ -11,14 +11,20 @@
       ansible.builtin.apt:
         update_cache: true
 
+    - name: Ensure directory for systemctl-replacement
+      ansible.builtin.file:
+        path: /systemctl-replacement/
+        state: directory
+        mode: "0755"
+
     - name: Install systemctl.py
       ansible.builtin.pip:
         name: docker-systemctl-replacement=={{ version }}
-        extra_args: --target=/docker-systemctl-replacement/
+        extra_args: --target=/systemctl-replacement/
 
     - name: Replace systemctl
       ansible.builtin.copy:
-        src: /docker-systemctl-replacement/systemctl.py
+        src: /systemctl-replacement/systemctl.py
         dest: /usr/bin/systemctl
         remote_src: true
         mode: "0755"
