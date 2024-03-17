@@ -2,7 +2,7 @@
 # Install docker-systemctl-replacement to allow systemd commands to be run in a container
 
 - name: Prepare
-  hosts: molecule
+  hosts: all
   vars:
     version: 1.5.8066 # renovate: datasource=pypi dep_name=docker-systemctl-replacement
   tasks:
