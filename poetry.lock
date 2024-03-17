@@ -806,17 +806,6 @@ dev = ["pre-commit", "tox"]
 testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
-name = "py"
-version = "1.11.0"
-description = "library with cross-python path, ini-parsing, io, code, log facilities"
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-files = [
-    {file = "py-1.11.0-py2.py3-none-any.whl", hash = "sha256:607c53218732647dff4acdfcd50cb62615cedf612e72d1724fb1a0cc6405b378"},
-    {file = "py-1.11.0.tar.gz", hash = "sha256:51c75c4126074b472f746a24399ad32f6053d1b34b68d2fa41e558e6f4a98719"},
-]
-
-[[package]]
 name = "pycparser"
 version = "2.21"
 description = "C parser in Python"
@@ -885,21 +874,6 @@ pytest = ">=6"
 docs = ["mkdocs-ansible (>=0.2.0)", "pipdeptree (>=2.7.1)"]
 lock = ["ansible-compat (==4.1.11)", "ansible-core (==2.16.2)", "attrs (==23.2.0)", "cffi (==1.16.0)", "cryptography (==41.0.7)", "exceptiongroup (==1.2.0)", "iniconfig (==2.0.0)", "jinja2 (==3.1.3)", "jsonschema (==4.20.0)", "jsonschema-specifications (==2023.12.1)", "markupsafe (==2.1.3)", "packaging (==23.2)", "pluggy (==1.3.0)", "pycparser (==2.21)", "pytest (==7.4.4)", "pyyaml (==6.0.1)", "referencing (==0.32.1)", "resolvelib (==1.0.1)", "rpds-py (==0.17.1)", "subprocess-tee (==0.4.1)", "tomli (==2.0.1)"]
 test = ["ansible-core", "coverage", "molecule", "pytest-plus (>=0.6.1)"]
-
-[[package]]
-name = "pytest-forked"
-version = "1.6.0"
-description = "run tests in isolated forked subprocesses"
-optional = false
-python-versions = ">=3.7"
-files = [
-    {file = "pytest-forked-1.6.0.tar.gz", hash = "sha256:4dafd46a9a600f65d822b8f605133ecf5b3e1941ebb3588e943b4e3eb71a5a3f"},
-    {file = "pytest_forked-1.6.0-py3-none-any.whl", hash = "sha256:810958f66a91afb1a1e2ae83089d8dc1cd2437ac96b12963042fbb9fb4d16af0"},
-]
-
-[package.dependencies]
-py = "*"
-pytest = ">=3.10"
 
 [[package]]
 name = "pytest-xdist"
@@ -1376,4 +1350,4 @@ dev = ["doc8", "flake8", "flake8-import-order", "rstcheck[sphinx]", "sphinx"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "f7a0d854f33c2eb86d8a6acf5c63a637f37a4a4c39c53bc73da9b2a06aa29556"
+content-hash = "8102a0e0df7e1ba1ae8eea4f9a0d99dbb1cd5dd40ae1cb7047a7b04081904086"
