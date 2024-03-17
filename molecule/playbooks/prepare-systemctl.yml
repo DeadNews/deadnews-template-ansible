@@ -5,6 +5,7 @@
   hosts: all
   vars:
     version: 1.5.8066 # renovate: datasource=pypi dep_name=docker-systemctl-replacement
+
   tasks:
     - name: Update apt cache
       when: ansible_os_family == 'Debian'
@@ -28,8 +29,9 @@
         var: pip_install
 
     - name: Check if systemctl.py is installed
-      ansible.builtin.stat:
-        path: /systemctl-replacement/systemctl.py
+      ansible.builtin.command:
+        cmd: ls -lh /systemctl-replacement/
+      changed_when: false
       register: systemctl_stat
 
     - name: Ensure systemctl.py
