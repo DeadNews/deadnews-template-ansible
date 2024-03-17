@@ -21,6 +21,11 @@
       ansible.builtin.pip:
         name: docker-systemctl-replacement=={{ version }}
         extra_args: --target=/systemctl-replacement/
+      register: pip_install
+
+    - name: Ensure systemctl.py is installed
+      ansible.builtin.debug:
+        var: pip_install
 
     - name: Replace systemctl
       ansible.builtin.copy:
