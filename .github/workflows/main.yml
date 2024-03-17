@@ -12,7 +12,7 @@ permissions:
   contents: read
 
 env:
-  ANSIBLE_HOME: ~/.ansible
+  COLLECTIONS_PATH: .ansible
   PY_COLORS: "1"
 
 jobs:
@@ -22,12 +22,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Cache ansible reqs
+      - name: Cache ansible requirements
         id: cache-reqs
         uses: actions/cache@v4
         with:
           key: reqs-${{ runner.os }}-${{ hashFiles('requirements.yml') }}
-          path: ${{ env.ANSIBLE_HOME }}/collections
+          path: ${{ env.COLLECTIONS_PATH }}
 
       - name: Install poetry
         run: pipx install poetry
@@ -37,9 +37,9 @@ jobs:
           cache: poetry
 
       - name: Install deps
-        run: poetry install
+        run: poetry install --no-root
 
-      - name: Install ansible-galaxy deps
+      - name: Install requirements
         if: steps.cache-reqs.outputs.cache-hit != 'true'
         run: poetry run ansible-galaxy install -r requirements.yml
 
@@ -56,6 +56,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Cache ansible requirements
+        id: cache-reqs
+        uses: actions/cache@v4
+        with:
+          key: reqs-${{ runner.os }}-${{ hashFiles('requirements.yml') }}
+          path: ${{ env.COLLECTIONS_PATH }}
+
       - name: Install poetry
         run: pipx install poetry
 
@@ -64,10 +71,11 @@ jobs:
           cache: poetry
 
       - name: Install deps
-        run: poetry install
+        run: poetry install --no-root
 
-      - name: Install ansible deps
-        run: poetry run ade install -r requirements.yml
+      - name: Install requirements
+        if: steps.cache-reqs.outputs.cache-hit != 'true'
+        run: poetry run ansible-galaxy install -r requirements.yml
 
       - name: Run tests
         run: make test-ci

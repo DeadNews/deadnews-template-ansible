@@ -1,4 +1,5 @@
 # ansible
+.ansible/
 .ansible-retry
 .facts_cache/
 .vault.key
