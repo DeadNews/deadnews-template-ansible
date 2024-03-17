@@ -30,7 +30,7 @@
 
     - name: Check if systemctl.py is installed
       ansible.builtin.command:
-        cmd: ls -lh /systemctl-replacement/
+        cmd: ls -lh /systemctl-replacement/bin
       changed_when: false
       register: systemctl_stat
 
@@ -40,7 +40,7 @@
 
     - name: Replace systemctl
       ansible.builtin.copy:
-        src: /systemctl-replacement/systemctl.py
+        src: /systemctl-replacement/bin/systemctl.py
         dest: /usr/bin/systemctl
         remote_src: true
         mode: "0755"

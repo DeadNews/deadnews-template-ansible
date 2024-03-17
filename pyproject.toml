@@ -16,7 +16,6 @@ molecule = "^24.2.0"
 molecule-plugins = { version = "^23.5.3", extras = ["docker", "vagrant"] }
 pytest = "^8.1.1"
 pytest-ansible = "^24.1.2"
-pytest-xdist = "^3.5.0"
 
 [tool.pytest.ini_options]
 addopts = "--verbose"
