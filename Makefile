@@ -24,8 +24,8 @@ test:
 test-ci:
 	poetry run pytest -rP --molecule roles -m docker -p no:warnings
 
-test-traefik:
-	pushd roles/traefik && poetry run molecule test --all; popd
+test-%:
+	pushd roles/$* && poetry run molecule test -s $*; popd
 
-test-grafana_loki:
-	pushd roles/grafana_loki && poetry run molecule test --all; popd
+test-vg-%:
+	pushd roles/$* && poetry run molecule test -s $*_vagrant; popd

@@ -1,12 +1,10 @@
 ---
-# Install systemd
-
-- name: Prepare
+- name: Install systemd
   hosts: all
 
   tasks:
     - name: Update apt cache
-      when: ansible_os_family == 'Debian'
+      when: ansible_os_family == "Debian"
       ansible.builtin.apt:
         update_cache: true
 
@@ -17,3 +15,14 @@
           - systemd
           - systemd-sysv
         state: present
+
+    - name: Wait for systemd to complete initialization # noqa: command-instead-of-module
+      ansible.builtin.command: systemctl is-system-running
+      register: systemctl_status
+      retries: 12
+      delay: 5
+      until: >
+        'running' in systemctl_status.stdout or
+        'degraded' in systemctl_status.stdout
+      changed_when: false
+      failed_when: systemctl_status.rc > 1

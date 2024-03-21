@@ -47,7 +47,7 @@ jobs:
       - name: Lint code
         run: poetry run ansible-lint
 
-  test:
+  tests:
     name: Tests
     strategy:
       fail-fast: false
