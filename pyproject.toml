@@ -2,7 +2,7 @@
 name = "deadnews-template-ansible"
 version = "0.0.0"
 description = "Ansible Project Template"
-authors = ["DeadNews <aurczpbgr@mozmail.com>"]
+authors = ["DeadNews <deadnewsgit@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
