@@ -42,19 +42,19 @@ resolvelib = ">=0.5.3,<1.1.0"
 
 [[package]]
 name = "ansible-lint"
-version = "24.2.1"
+version = "24.2.3"
 description = "Checks playbooks for practices and behavior that could potentially be improved"
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "ansible-lint-24.2.1.tar.gz", hash = "sha256:c3619deaadf852c353decff7242589bd1339e29271552e4e37bfa8f67db4c56b"},
-    {file = "ansible_lint-24.2.1-py3-none-any.whl", hash = "sha256:d9e11aa06429610f0b461ec5eb9adf7317d4b2abb78475a9a1ec7e8f8e2c1316"},
+    {file = "ansible_lint-24.2.3-py3-none-any.whl", hash = "sha256:8aad0de454e0e803b0416a9c6e409302a8eb93c0f3866a98f035b96647e72213"},
+    {file = "ansible_lint-24.2.3.tar.gz", hash = "sha256:2ec67cc1719f56e63b1dfc3728d0c2c4142e531f4452f6ae31f618438d59469a"},
 ]
 
 [package.dependencies]
 ansible-compat = ">=4.1.11"
 ansible-core = ">=2.12.0"
-black = ">=22.8.0"
+black = ">=24.3.0"
 filelock = ">=3.3.0"
 jsonschema = ">=4.10.0"
 packaging = ">=21.3"
@@ -68,7 +68,7 @@ yamllint = ">=1.30.0"
 
 [package.extras]
 docs = ["mkdocs-ansible (>=0.2.0)", "pipdeptree (>=2.7.1)"]
-test = ["black", "coverage-enable-subprocess", "coverage[toml] (>=6.4.4)", "jmespath", "license-expression (>=30.1.1)", "mypy", "netaddr", "psutil", "pylint", "pytest (>=7.2.2)", "pytest-mock", "pytest-plus (>=0.6)", "pytest-xdist (>=2.1.0)", "ruamel-yaml-clib", "ruamel.yaml (>=0.17.31)", "types-jsonschema", "types-pyyaml"]
+test = ["black", "coverage-enable-subprocess", "coverage[toml] (>=6.4.4)", "jmespath", "license-expression (>=30.3.0)", "mypy", "netaddr", "psutil", "pylint", "pytest (>=7.2.2)", "pytest-mock", "pytest-plus (>=0.6)", "pytest-xdist (>=2.1.0)", "ruamel-yaml-clib", "ruamel.yaml (>=0.17.31)", "types-jsonschema", "types-pyyaml"]
 
 [[package]]
 name = "attrs"
@@ -675,13 +675,13 @@ files = [
 
 [[package]]
 name = "molecule"
-version = "24.2.0"
+version = "24.2.1"
 description = "Molecule aids in the development and testing of Ansible roles"
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "molecule-24.2.0-py3-none-any.whl", hash = "sha256:eac7d9bf12d2bf5254e13a46a40357615c32e7003409f305c3940e93b65d7bea"},
-    {file = "molecule-24.2.0.tar.gz", hash = "sha256:47c982a7d05db7846da77fe7159deb946f26cafb2e388fc71812be0089a41776"},
+    {file = "molecule-24.2.1-py3-none-any.whl", hash = "sha256:484764c8ae40c7918eb5e43b0bec0315e71f7ed82c36cc9b274f17e42ba00cc8"},
+    {file = "molecule-24.2.1.tar.gz", hash = "sha256:83522baa9b91560ea986273cab149c39156976e9d61245717226320935ad56e4"},
 ]
 
 [package.dependencies]
@@ -699,7 +699,7 @@ rich = ">=9.5.1"
 wcmatch = ">=8.1.2"
 
 [package.extras]
-docs = ["linkchecker (>=10.4.0)", "mkdocs-ansible (>=24.2.1)", "pipdeptree (>=2.4.0)"]
+docs = ["linkchecker (>=10.4.0)", "mkdocs-ansible (>=24.3.0)", "pipdeptree (>=2.4.0)"]
 test = ["ansi2html (>=1.8.0)", "ansible-lint (>=6.12.1)", "check-jsonschema", "coverage (>=7.0.3)", "filelock (>=3.9.0)", "pexpect (>=4.8.0,<5)", "pytest (>=7.2.0)", "pytest-mock (>=3.10.0)", "pytest-plus (>=0.4.0)", "pytest-xdist (>=3.1.0)"]
 testinfra = ["pytest-testinfra (>=8.1.0)"]
 
@@ -778,13 +778,13 @@ test = ["appdirs (==1.4.4)", "covdefaults (>=2.3)", "pytest (>=7.4.3)", "pytest-
 
 [[package]]
 name = "pluggy"
-version = "1.4.0"
+version = "1.5.0"
 description = "plugin and hook calling mechanisms for python"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "pluggy-1.4.0-py3-none-any.whl", hash = "sha256:7db9f7b503d67d1c5b95f59773ebb58a8c1c288129a88665838012cfb07b8981"},
-    {file = "pluggy-1.4.0.tar.gz", hash = "sha256:8c85c2876142a764e5b7548e7d9a0e0ddb46f5185161049a79b7e974454223be"},
+    {file = "pluggy-1.5.0-py3-none-any.whl", hash = "sha256:44e1ad92c8ca002de6377e165f3e0f1be63266ab4d554740532335b9d75ea669"},
+    {file = "pluggy-1.5.0.tar.gz", hash = "sha256:2cffa88e94fdc978c4c574f15f9e59b7f4201d439195c3715ca9e2486f1d0cf1"},
 ]
 
 [package.extras]
@@ -819,13 +819,13 @@ windows-terminal = ["colorama (>=0.4.6)"]
 
 [[package]]
 name = "pytest"
-version = "8.1.1"
+version = "8.2.0"
 description = "pytest: simple powerful testing with Python"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "pytest-8.1.1-py3-none-any.whl", hash = "sha256:2a8386cfc11fa9d2c50ee7b2a57e7d898ef90470a7a34c4b949ff59662bb78b7"},
-    {file = "pytest-8.1.1.tar.gz", hash = "sha256:ac978141a75948948817d360297b7aae0fcb9d6ff6bc9ec6d514b85d5a65c044"},
+    {file = "pytest-8.2.0-py3-none-any.whl", hash = "sha256:1733f0620f6cda4095bbf0d9ff8022486e91892245bb9e7d5542c018f612f233"},
+    {file = "pytest-8.2.0.tar.gz", hash = "sha256:d507d4482197eac0ba2bae2e9babf0672eb333017bcedaa5fb1a3d42c1174b3f"},
 ]
 
 [package.dependencies]
@@ -833,21 +833,21 @@ colorama = {version = "*", markers = "sys_platform == \"win32\""}
 exceptiongroup = {version = ">=1.0.0rc8", markers = "python_version < \"3.11\""}
 iniconfig = "*"
 packaging = "*"
-pluggy = ">=1.4,<2.0"
+pluggy = ">=1.5,<2.0"
 tomli = {version = ">=1", markers = "python_version < \"3.11\""}
 
 [package.extras]
-testing = ["argcomplete", "attrs (>=19.2)", "hypothesis (>=3.56)", "mock", "pygments (>=2.7.2)", "requests", "setuptools", "xmlschema"]
+dev = ["argcomplete", "attrs (>=19.2)", "hypothesis (>=3.56)", "mock", "pygments (>=2.7.2)", "requests", "setuptools", "xmlschema"]
 
 [[package]]
 name = "pytest-ansible"
-version = "24.1.2"
+version = "24.1.3"
 description = "Plugin for pytest to simplify calling ansible modules from tests or fixtures"
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "pytest-ansible-24.1.2.tar.gz", hash = "sha256:28602a55c73390b2b22ea779833ea4af0a1b68fc39ebdc8c37cfb68041536ac9"},
-    {file = "pytest_ansible-24.1.2-py3-none-any.whl", hash = "sha256:5a3fa6443c344397e35f867e131ee0454ba935213565a19ebff1d620daae15f5"},
+    {file = "pytest_ansible-24.1.3-py3-none-any.whl", hash = "sha256:5f4a180d11c16a825a0993b4123876d9a59a65c53b1b8e31b3870c99191df402"},
+    {file = "pytest_ansible-24.1.3.tar.gz", hash = "sha256:cb0b5622043c71c8795d67dc06e12ff1a8b65a5d5fc3e4ca2e2c8115c88c9012"},
 ]
 
 [package.dependencies]
@@ -858,7 +858,6 @@ pytest = ">=6"
 
 [package.extras]
 docs = ["mkdocs-ansible (>=0.2.0)", "pipdeptree (>=2.7.1)"]
-lock = ["ansible-compat (==4.1.11)", "ansible-core (==2.16.2)", "attrs (==23.2.0)", "cffi (==1.16.0)", "cryptography (==41.0.7)", "exceptiongroup (==1.2.0)", "iniconfig (==2.0.0)", "jinja2 (==3.1.3)", "jsonschema (==4.20.0)", "jsonschema-specifications (==2023.12.1)", "markupsafe (==2.1.3)", "packaging (==23.2)", "pluggy (==1.3.0)", "pycparser (==2.21)", "pytest (==7.4.4)", "pyyaml (==6.0.1)", "referencing (==0.32.1)", "resolvelib (==1.0.1)", "rpds-py (==0.17.1)", "subprocess-tee (==0.4.1)", "tomli (==2.0.1)"]
 test = ["ansible-core", "coverage", "molecule", "pytest-plus (>=0.6.1)"]
 
 [[package]]
@@ -1316,4 +1315,4 @@ dev = ["doc8", "flake8", "flake8-import-order", "rstcheck[sphinx]", "sphinx"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "bc99ad555f4d863a03a073e9a2368c0cf76e9017d3bd3c2dbf306b4c7505e09d"
+content-hash = "5936e5cb2d6dac5fe4bc278ef080861b8f54a40a5b3e3ec88ea21171a101f85c"
