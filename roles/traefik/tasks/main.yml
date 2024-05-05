@@ -5,6 +5,9 @@
   ansible.builtin.import_role:
     name: deadnews.util.docker
   vars:
+    docker_cleanup_scheduled: true
+    docker_hold_packages: true
+    docker_rootless_expose_privileged_ports: true
     docker_rootless: true
 
 - name: Setup Traefik
