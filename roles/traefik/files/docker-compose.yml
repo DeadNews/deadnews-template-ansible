@@ -1,16 +1,56 @@
 ---
-version: "3"
+networks:
+  traefik_public:
+    external: true
+  socket_proxy:
+    external: false
+
 services:
-  reverse-proxy:
-    image: traefik:3.0.0-rc1@sha256:916a4a86b36bb3576f39883573b0f932ed3f010bbbf35feab115bdbd5033566b
-    command:
-      - --api.insecure=true # Traefik will listen on port 8080 by default for API request
-      - --providers.docker=true # Enabling Docker provider
-      - --providers.docker.exposedbydefault=false # Do not expose containers unless explicitly told so
-      - --entrypoints.web.address=:80 # Traefik will listen to incoming request on the port 80 (HTTP)
-      - --ping=true
+  traefik:
+    image: traefik:3.0.0@sha256:7996bdae8aaa70eaacf2978b6c949de5b68c0a24ddc3e40c06344ecc88cfaea3
+    container_name: traefik
+    restart: unless-stopped
+    networks:
+      - traefik_public
+      - socket_proxy
+    depends_on:
+      - socket_proxy
     ports:
-      - 80:80 # The HTTP port
-      - 8080:8080 # The Web UI (enabled by --api.insecure=true)
+      # "web" HTTP listener
+      - "0.0.0.0:80:80/tcp"
+      # "traefik" internal services
+      - 127.0.0.1:8080:8080/tcp
+    command:
+      - --api.dashboard=true
+      - --entrypoints.web.address=:80
+      - --metrics.prometheus=true
+      - --ping=true
+      - --providers.docker.endpoint=tcp://socket_proxy:2375
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.network=traefik_public
+      - --providers.docker=true
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.api_route.entrypoints=web
+      - traefik.http.routers.api_route.rule=Host(`traefik.localhost`)
+      - traefik.http.routers.api_route.service=api@internal
+    healthcheck:
+      test: [CMD, traefik, healthcheck, --ping]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+  # Security-enhanced proxy for the Docker Socket
+  socket_proxy:
+    image: tecnativa/docker-socket-proxy:0.1.2@sha256:dc8ec925b1360c54e6bf350602d6faac4e33c5d8d809118e4c000c0b14a4529a
+    restart: unless-stopped
+    networks:
+      - socket_proxy
     volumes:
-      - ${XDG_RUNTIME_DIR:-/var/run/}/docker.sock:/var/run/docker.sock:ro
+      - ${XDG_RUNTIME_DIR:-/var/run}/docker.sock:/var/run/docker.sock:ro
+    environment:
+      NETWORKS: 1
+      SERVICES: 1
+      CONTAINERS: 1
+      TASKS: 1
