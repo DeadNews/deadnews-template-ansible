@@ -17,3 +17,5 @@ provisioner:
   playbooks:
     converge: ../../../../molecule/playbooks/converge.yml
     prepare: ../../../../molecule/playbooks/prepare-systemd.yml
+  env:
+    ANSIBLE_VERBOSITY: 0
