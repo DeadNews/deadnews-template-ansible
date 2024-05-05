@@ -1,7 +1,0 @@
----
-- name: (Handler) Restart Grafana Loki service
-  ansible.builtin.systemd:
-    name: loki
-    enabled: true
-    state: restarted
-    daemon_reload: true
