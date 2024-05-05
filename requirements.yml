@@ -4,7 +4,10 @@ collections:
     version: 1.5.4
 
   - name: community.general
-    version: 8.5.0
+    version: 8.6.0
+
+  - name: community.docker
+    version: 3.9.0
 
   - name: deadnews.util
-    version: 1.0.0
+    version: 1.2.0-beta.0
