@@ -2,6 +2,8 @@
 networks:
   traefik_public:
     external: true
+  socket_proxy:
+    external: false
 
 services:
   traefik:
@@ -9,19 +11,22 @@ services:
     container_name: traefik
     networks:
       - traefik_public
+      - socket_proxy
+    depends_on:
+      - socket_proxy
     ports:
       # "web" HTTP listener
       - "0.0.0.0:80:80/tcp"
       # "traefik" internal services
       - 127.0.0.1:8080:8080/tcp
-    volumes:
-      - ${XDG_RUNTIME_DIR:-/var/run}/docker.sock:/var/run/docker.sock:ro
     command:
       - --api.dashboard=true
       - --entrypoints.web.address=:80
       - --metrics.prometheus=true
       - --ping=true
+      - --providers.docker.endpoint=tcp://socket_proxy:2375
       - --providers.docker.exposedbydefault=false
+      - --providers.docker.network=traefik_public
       - --providers.docker=true
     labels:
       - traefik.enable=true
@@ -34,3 +39,17 @@ services:
       timeout: 5s
       retries: 3
       start_period: 5s
+
+  # Security-enhanced proxy for the Docker Socket
+  socket_proxy:
+    image: tecnativa/docker-socket-proxy:0.1.2@sha256:dc8ec925b1360c54e6bf350602d6faac4e33c5d8d809118e4c000c0b14a4529a
+    restart: unless-stopped
+    networks:
+      - socket_proxy
+    volumes:
+      - ${XDG_RUNTIME_DIR:-/var/run}/docker.sock:/var/run/docker.sock:ro
+    environment:
+      NETWORKS: 1
+      SERVICES: 1
+      CONTAINERS: 1
+      TASKS: 1
