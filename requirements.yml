@@ -10,4 +10,4 @@ collections:
     version: 3.9.0
 
   - name: deadnews.util
-    version: 1.2.0
+    version: 1.2.1
