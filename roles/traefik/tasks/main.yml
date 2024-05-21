@@ -9,7 +9,7 @@
 
 - name: Create a network for Traefik
   community.docker.docker_network:
-    name: traefik_public
+    name: traefik-public
 
 - name: Deploy Traefik
   ansible.builtin.import_role:
