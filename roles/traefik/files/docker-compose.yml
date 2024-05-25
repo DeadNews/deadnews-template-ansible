@@ -61,3 +61,14 @@ services:
       SERVICES: 1
       CONTAINERS: 1
       TASKS: 1
+
+  # Simple service for testing
+  whoami:
+    image: traefik/whoami
+    container_name: whoami
+    networks:
+      - traefik-public
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.whoami.rule=Host(`whoami.localhost`)
+      - traefik.http.routers.whoami.entrypoints=web

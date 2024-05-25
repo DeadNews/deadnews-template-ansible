@@ -27,10 +27,21 @@
     docker_compose_containers_check:
       - traefik
       - socket-proxy
+      - whoami
 
 - name: Verify that Traefik is responding
   ansible.builtin.uri:
     url: http://127.0.0.1:8080/ping
+  register: traefik_verify
+  retries: 5
+  delay: 8
+  until: traefik_verify is not failed
+
+- name: Verify that Whoami is responding
+  ansible.builtin.uri:
+    url: http://127.0.0.1:80
+    headers:
+      Host: whoami.localhost
   register: traefik_verify
   retries: 5
   delay: 8
