@@ -19,7 +19,7 @@
     docker_compose_target_dir: ~/docker-compose
     docker_compose_files:
       - src: files/docker-compose.yml
-    docker_compose_show_files: true
+    docker_compose_files_show: true
     docker_compose_sleep_time: 2
     docker_compose_containers_logs:
       - traefik
