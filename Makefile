@@ -9,7 +9,7 @@ install:
 
 update:
 	poetry up --latest
-	galaxy-update requirements.yml
+	poetry run galaxy-update requirements.yml
 
 checks: pc
 
