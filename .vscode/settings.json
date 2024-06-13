@@ -8,6 +8,7 @@
   },
   "ansible.ansible.reuseTerminal": true,
   "files.associations": {
+    "**/group_vars/**/*.yml": "ansible",
     "**/handlers/*.yml": "ansible",
     "**/meta/*.yml": "ansible",
     "**/molecule/**/*.yml": "ansible",

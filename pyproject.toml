@@ -8,6 +8,9 @@ authors = ["DeadNews <deadnewsgit@gmail.com>"]
 python = "^3.10"
 ansible-core = "^2.16.6"
 
+[tool.poetry.group.dev.dependencies]
+galaxy-update = "^0.0.1a0"
+
 [tool.poetry.group.lint.dependencies]
 ansible-lint = { version = "^24.5.0", markers = "platform_system != 'Windows'" }
 

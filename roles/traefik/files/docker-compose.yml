@@ -40,6 +40,8 @@ services:
       - traefik.http.routers.api_route.entrypoints=web
       - traefik.http.routers.api_route.rule=Host(`traefik.localhost`)
       - traefik.http.routers.api_route.service=api@internal
+      - traefik.http.routers.api_route.middlewares=api_auth
+      - traefik.http.middlewares.api_auth.basicauth.users=example:$$apr1$$YhtGlcCF$$YAf5de95WAOyUufiUV1F10
 
   # Security-enhanced proxy for the Docker Socket
   socket-proxy:
