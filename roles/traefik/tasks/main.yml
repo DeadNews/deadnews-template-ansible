@@ -23,10 +23,10 @@
     docker_compose_sleep_time: 2
     docker_compose_containers_logs:
       - traefik
-      - socket-proxy
+      - traefik-socket-proxy
     docker_compose_containers_check:
       - traefik
-      - socket-proxy
+      - traefik-socket-proxy
       - whoami
 
 - name: Verify that Traefik is responding
