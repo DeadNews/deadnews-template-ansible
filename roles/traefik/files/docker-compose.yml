@@ -1,61 +1,65 @@
 ---
 networks:
-  traefik-public:
+  traefik:
     external: true
   socket-proxy:
     external: false
 
 services:
   traefik:
-    image: traefik:v3.0.3@sha256:a00ced69e41bf2eb475fd0cc70c1be785e4a5f45d693f26360b688c48816717f
+    image: traefik:v3.0.4@sha256:a208c74fd80a566d4ea376053bff73d31616d7af3f1465a7747b8b89ee34d97e
     container_name: traefik
     restart: unless-stopped
     networks:
-      - traefik-public
+      - traefik
       - socket-proxy
     depends_on:
       - socket-proxy
     healthcheck:
       test: [CMD, traefik, healthcheck, --ping]
       interval: 60s
-      timeout: 5s
       retries: 3
-      start_period: 5s
+      timeout: 10s
+      start_period: 60s
     ports:
       # "web" HTTP listener
-      - "0.0.0.0:80:80/tcp"
+      - 0.0.0.0:80:80/tcp
+      # "websecure" HTTPS listener
+      - 0.0.0.0:443:443/tcp
       # "traefik" internal services
       - 127.0.0.1:8080:8080/tcp
     command:
       - --api.dashboard=true
       - --entrypoints.web.address=:80
+      - --global.checknewversion=false
+      - --log.level=WARN
       - --metrics.prometheus=true
       - --ping=true
       - --providers.docker.endpoint=tcp://socket-proxy:2375
       - --providers.docker.exposedbydefault=false
-      - --providers.docker.network=traefik-public
+      - --providers.docker.network=traefik
       - --providers.docker=true
     labels:
       - traefik.enable=true
       - traefik.http.routers.api_route.entrypoints=web
       - traefik.http.routers.api_route.rule=Host(`traefik.localhost`)
       - traefik.http.routers.api_route.service=api@internal
-      - traefik.http.routers.api_route.middlewares=api_auth
-      - traefik.http.middlewares.api_auth.basicauth.users=example:$$apr1$$YhtGlcCF$$YAf5de95WAOyUufiUV1F10
+      - traefik.http.routers.api_route.middlewares=api_middle
+      - traefik.http.middlewares.api_middle.basicauth.users=example:$$apr1$$YhtGlcCF$$YAf5de95WAOyUufiUV1F10
 
   # Security-enhanced proxy for the Docker Socket
   socket-proxy:
-    image: tecnativa/docker-socket-proxy:0.1.2@sha256:dc8ec925b1360c54e6bf350602d6faac4e33c5d8d809118e4c000c0b14a4529a
-    container_name: socket-proxy
+    image: tecnativa/docker-socket-proxy:0.2.0@sha256:083bd0ed8783e366d745f332f0e4489816dd35d984bef8f16e6d89484a22c082
+    container_name: traefik-socket-proxy
     restart: unless-stopped
     networks:
       - socket-proxy
     healthcheck:
       test: wget --no-verbose --tries=1 --spider http://127.0.0.1:2375/version || exit 1
-      interval: 30s
-      timeout: 5s
+      interval: 60s
       retries: 3
-      start_period: 5s
+      timeout: 10s
+      start_period: 60s
     volumes:
       - ${XDG_RUNTIME_DIR:-/var/run}/docker.sock:/var/run/docker.sock:ro
     environment:
@@ -69,7 +73,7 @@ services:
     image: traefik/whoami:v1.10.2@sha256:1474027c316661cdec87df2623e13a41e7e1ce0ba99c24917631de8f300b5420
     container_name: whoami
     networks:
-      - traefik-public
+      - traefik
     labels:
       - traefik.enable=true
       - traefik.http.routers.whoami.rule=Host(`whoami.localhost`)

@@ -9,7 +9,7 @@
 
 - name: Create a network for Traefik
   community.docker.docker_network:
-    name: traefik-public
+    name: traefik
 
 - name: Deploy Traefik
   ansible.builtin.import_role:
@@ -33,8 +33,8 @@
   ansible.builtin.uri:
     url: http://127.0.0.1:8080/ping
   register: traefik_verify
-  retries: 5
-  delay: 8
+  retries: 12
+  delay: 5
   until: traefik_verify is not failed
 
 - name: Verify that Whoami is responding
@@ -43,6 +43,6 @@
     headers:
       Host: whoami.localhost
   register: traefik_verify
-  retries: 5
-  delay: 8
+  retries: 12
+  delay: 5
   until: traefik_verify is not failed
