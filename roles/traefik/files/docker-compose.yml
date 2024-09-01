@@ -1,41 +1,44 @@
 ---
+name: traefik
+
 networks:
+  dsproxy:
   traefik:
     external: true
-  socket-proxy:
-    external: false
-
 services:
   traefik:
     image: traefik:v3.1.2@sha256:ec1a82940b8e00eaeef33fb4113aa1d1573b2ebb6440e10c023743fe96f08475
     container_name: traefik
     restart: unless-stopped
-    networks:
-      - traefik
-      - socket-proxy
     depends_on:
-      - socket-proxy
+      - dsproxy
+    networks:
+      - default
+      - dsproxy
+      - traefik
     healthcheck:
       test: [CMD, traefik, healthcheck, --ping]
-      interval: 60s
+      interval: 1m
       retries: 3
       timeout: 10s
-      start_period: 60s
+      start_period: 1m
     ports:
       # "web" HTTP listener
       - 0.0.0.0:80:80/tcp
       # "websecure" HTTPS listener
       - 0.0.0.0:443:443/tcp
-      # "traefik" internal services
-      - 127.0.0.1:8080:8080/tcp
     command:
+      - --accesslog=true
       - --api.dashboard=true
       - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --entrypoints.websecure.http.tls=true
       - --global.checknewversion=false
       - --log.level=WARN
+      - --metrics.prometheus.addrouterslabels=true
       - --metrics.prometheus=true
       - --ping=true
-      - --providers.docker.endpoint=tcp://socket-proxy:2375
+      - --providers.docker.endpoint=tcp://dsproxy:2375
       - --providers.docker.exposedbydefault=false
       - --providers.docker.network=traefik
       - --providers.docker=true
@@ -44,29 +47,45 @@ services:
       - traefik.http.routers.api_route.entrypoints=web
       - traefik.http.routers.api_route.rule=Host(`traefik.localhost`)
       - traefik.http.routers.api_route.service=api@internal
-      - traefik.http.routers.api_route.middlewares=api_middle
-      - traefik.http.middlewares.api_middle.basicauth.users=example:$$apr1$$YhtGlcCF$$YAf5de95WAOyUufiUV1F10
+      - traefik.http.routers.api_route.middlewares=api_auth
+      - traefik.http.middlewares.api_auth.basicauth.users=example:$$apr1$$YhtGlcCF$$YAf5de95WAOyUufiUV1F10
 
   # Security-enhanced proxy for the Docker Socket
-  socket-proxy:
+  dsproxy:
     image: tecnativa/docker-socket-proxy:0.2.0@sha256:083bd0ed8783e366d745f332f0e4489816dd35d984bef8f16e6d89484a22c082
-    container_name: traefik-socket-proxy
+    container_name: traefik-dsproxy
     restart: unless-stopped
     networks:
-      - socket-proxy
+      - dsproxy
     healthcheck:
       test: wget --no-verbose --tries=1 --spider http://127.0.0.1:2375/version || exit 1
-      interval: 60s
+      interval: 1m
       retries: 3
       timeout: 10s
-      start_period: 60s
+      start_period: 1m
     volumes:
       - ${XDG_RUNTIME_DIR:-/var/run}/docker.sock:/var/run/docker.sock:ro
     environment:
+      DISABLE_IPV6: true
+      CONTAINERS: 1
       NETWORKS: 1
       SERVICES: 1
-      CONTAINERS: 1
       TASKS: 1
+
+  vector:
+    image: timberio/vector:0.40.1-alpine@sha256:a29c5e3eeea49ea0a927d598f7e88624ff18ebd35df827772a337c96684c9ce5
+    container_name: traefik-vector
+    restart: unless-stopped
+    depends_on:
+      - traefik
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://127.0.0.1:8686/health || exit 1
+      interval: 1m
+      retries: 3
+      timeout: 10s
+      start_period: 1m
+    volumes:
+      - ./vector.yml:/etc/vector/vector.yaml:ro
 
   # Simple service for testing
   whoami:

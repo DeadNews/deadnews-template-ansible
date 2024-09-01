@@ -12,10 +12,8 @@ update:
 	poetry run galaxy-update requirements.yml
 
 checks: pc
-
 pc:
 	pre-commit run -a
-
 lint:
 	poetry run ansible-lint
 

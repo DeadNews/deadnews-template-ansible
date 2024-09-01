@@ -1,0 +1,34 @@
+---
+api:
+  enabled: true
+
+sources:
+  prometheus_scrape:
+    type: prometheus_scrape
+    scrape_interval_secs: 60
+    instance_tag: instance
+    endpoints:
+      - http://traefik:8080/metrics
+
+transforms:
+  scrapes_remap:
+    type: remap
+    inputs:
+      - prometheus_scrape
+    source: |-
+      .tags.host = "{{ ansible_fqdn }}"
+      .tags.instance = "{{ ansible_hostname }}"
+
+sinks:
+  prometheus_exporter:
+    type: prometheus_remote_write
+    inputs:
+      - scrapes_remap
+    endpoint: https://mimir.example.com/api/v1/push
+    tenant_id: tenant_id
+    auth:
+      strategy: basic
+      user: user
+      password: password
+    healthcheck:
+      enabled: false
