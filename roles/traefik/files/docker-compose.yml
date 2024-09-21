@@ -7,7 +7,7 @@ networks:
     external: true
 services:
   traefik:
-    image: traefik:v3.1.2@sha256:ec1a82940b8e00eaeef33fb4113aa1d1573b2ebb6440e10c023743fe96f08475
+    image: traefik:v3.1.4@sha256:6215528042906b25f23fcf51cc5bdda29e078c6e84c237d4f59c00370cb68440
     container_name: traefik
     restart: unless-stopped
     depends_on:
@@ -52,7 +52,7 @@ services:
 
   # Security-enhanced proxy for the Docker Socket
   dsproxy:
-    image: tecnativa/docker-socket-proxy:0.2.0@sha256:083bd0ed8783e366d745f332f0e4489816dd35d984bef8f16e6d89484a22c082
+    image: tecnativa/docker-socket-proxy:0.3.0@sha256:9e4b9e7517a6b660f2cc903a19b257b1852d5b3344794e3ea334ff00ae677ac2
     container_name: traefik-dsproxy
     restart: unless-stopped
     networks:
@@ -73,7 +73,7 @@ services:
       TASKS: 1
 
   vector:
-    image: timberio/vector:0.40.1-alpine@sha256:a29c5e3eeea49ea0a927d598f7e88624ff18ebd35df827772a337c96684c9ce5
+    image: timberio/vector:0.41.1-alpine@sha256:501e5403e19238c9073c116fb3cbb750a9201d0271b09dae88f044534803c670
     container_name: traefik-vector
     restart: unless-stopped
     depends_on:
