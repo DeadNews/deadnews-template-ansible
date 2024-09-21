@@ -12,13 +12,13 @@ ansible-core = "^2.17.3"
 galaxy-update = "^0.0.1"
 
 [tool.poetry.group.lint.dependencies]
-ansible-lint = { version = "^24.7.0", markers = "platform_system != 'Windows'" }
+ansible-lint = { version = "^24.9.2", markers = "platform_system != 'Windows'" }
 
 [tool.poetry.group.test.dependencies]
-molecule = "^24.8.0"
+molecule = "^24.9.0"
 molecule-plugins = { version = "^23.5.3", extras = ["docker", "vagrant"] }
-pytest = "^8.3.2"
-pytest-ansible = "^24.8.0"
+pytest = "^8.3.3"
+pytest-ansible = "^24.9.0"
 
 [tool.pytest.ini_options]
 addopts = "--verbose"

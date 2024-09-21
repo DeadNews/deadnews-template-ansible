@@ -2,13 +2,13 @@
 
 [[package]]
 name = "ansible-compat"
-version = "24.8.0"
+version = "24.9.1"
 description = "Ansible compatibility goodies"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "ansible_compat-24.8.0-py3-none-any.whl", hash = "sha256:cb06e037380e6789f50e0d31cf16bba02cf741c661d657f56c77c246ca600edc"},
-    {file = "ansible_compat-24.8.0.tar.gz", hash = "sha256:cfaadc63f4d85dcbf4788f7bcec2ca8563e7b5c9fd3058005efd7988f1c1722c"},
+    {file = "ansible_compat-24.9.1-py3-none-any.whl", hash = "sha256:71e0791a912ad816059d463132270c97e29244fb0433b142beae718c1957a227"},
+    {file = "ansible_compat-24.9.1.tar.gz", hash = "sha256:9ff20245e1bd9de9b23a367902524ab0e11fbcfb741831996da5da5b60ab95df"},
 ]
 
 [package.dependencies]
@@ -42,17 +42,17 @@ resolvelib = ">=0.5.3,<1.1.0"
 
 [[package]]
 name = "ansible-lint"
-version = "24.7.0"
+version = "24.9.2"
 description = "Checks playbooks for practices and behavior that could potentially be improved"
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "ansible_lint-24.7.0-py3-none-any.whl", hash = "sha256:a2305f1d69a25be27810c64a32711d1d0463d2fda5b9308166362347aeda36e0"},
-    {file = "ansible_lint-24.7.0.tar.gz", hash = "sha256:ca2edc7e4e80cf19df4b28cbf4c118f761ce6cdd6a5ef9c8561e454ed7af5a24"},
+    {file = "ansible_lint-24.9.2-py3-none-any.whl", hash = "sha256:8c3ad2aaf857390af803959a96c650c35ea921fba6b32d92d11b2d248761bfea"},
+    {file = "ansible_lint-24.9.2.tar.gz", hash = "sha256:7cff6c5af10ef996b7c6010cbd48c91592764ae098f2b05408726899a1066a7f"},
 ]
 
 [package.dependencies]
-ansible-compat = ">=24.5.0dev0"
+ansible-compat = ">=24.9.1"
 ansible-core = ">=2.13.0"
 black = ">=24.3.0"
 filelock = ">=3.3.0"
@@ -804,13 +804,13 @@ files = [
 
 [[package]]
 name = "molecule"
-version = "24.8.0"
+version = "24.9.0"
 description = "Molecule aids in the development and testing of Ansible roles"
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "molecule-24.8.0-py3-none-any.whl", hash = "sha256:8e748ec0cf18e7ef718af2caf18e3ef77dff54f5be1ecee9ffaa93095f301cf5"},
-    {file = "molecule-24.8.0.tar.gz", hash = "sha256:140738904e9f17815780568ac408c9f73bb9e2ac721e34685a359e6d3507e677"},
+    {file = "molecule-24.9.0-py3-none-any.whl", hash = "sha256:ecb15e4c6b66e208e0621e19b100d471a06cd114371f46449620e7eda3ec0a62"},
+    {file = "molecule-24.9.0.tar.gz", hash = "sha256:8548eda13c31a1ea41ba0786b29dde466cfb812617c25792151335b17a410f63"},
 ]
 
 [package.dependencies]
@@ -948,13 +948,13 @@ windows-terminal = ["colorama (>=0.4.6)"]
 
 [[package]]
 name = "pytest"
-version = "8.3.2"
+version = "8.3.3"
 description = "pytest: simple powerful testing with Python"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "pytest-8.3.2-py3-none-any.whl", hash = "sha256:4ba08f9ae7dcf84ded419494d229b48d0903ea6407b030eaec46df5e6a73bba5"},
-    {file = "pytest-8.3.2.tar.gz", hash = "sha256:c132345d12ce551242c87269de812483f5bcc87cdbb4722e48487ba194f9fdce"},
+    {file = "pytest-8.3.3-py3-none-any.whl", hash = "sha256:a6853c7375b2663155079443d2e45de913a911a11d669df02a50814944db57b2"},
+    {file = "pytest-8.3.3.tar.gz", hash = "sha256:70b98107bd648308a7952b06e6ca9a50bc660be218d53c257cc1fc94fda10181"},
 ]
 
 [package.dependencies]
@@ -970,13 +970,13 @@ dev = ["argcomplete", "attrs (>=19.2)", "hypothesis (>=3.56)", "mock", "pygments
 
 [[package]]
 name = "pytest-ansible"
-version = "24.8.0"
+version = "24.9.0"
 description = "Plugin for pytest to simplify calling ansible modules from tests or fixtures"
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "pytest_ansible-24.8.0-py3-none-any.whl", hash = "sha256:ee2a508de6e1cc59c3a120acd0b995d653c39fe552097d97905fc5e3bca00e10"},
-    {file = "pytest_ansible-24.8.0.tar.gz", hash = "sha256:d3c17daf6ad09c63f155bb14054a6ce536a00788e9312bdbddc384fd7467c0c6"},
+    {file = "pytest_ansible-24.9.0-py3-none-any.whl", hash = "sha256:5a437f616a8e29c5970ce97bd97a868260febe299c06692e3df6932051160d56"},
+    {file = "pytest_ansible-24.9.0.tar.gz", hash = "sha256:327b4d401cdffd80f52cc2b83f0baeb831887149dd68533acb9e3c74c7695ecc"},
 ]
 
 [package.dependencies]
@@ -1481,4 +1481,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "6b9693a5e13458a3f45537297e02bf8d83aa7516e27ba5eb1f71da4cf478b940"
+content-hash = "d86f3b448485f8fbc74cfc7726edf25248a38d82affb61361320ff86861406c8"
