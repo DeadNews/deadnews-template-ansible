@@ -7,7 +7,7 @@ networks:
     external: true
 services:
   traefik:
-    image: traefik:v3.2.0@sha256:d12741b971f5c833919db2b680191dc23d5d96ef17e41a914e3c593a8c663ac4
+    image: traefik:v3.2.2@sha256:990bbdb0a9174b0d441317a63188e41c63795380db42b36ed920543e27ce04c9
     container_name: traefik
     restart: unless-stopped
     depends_on:
@@ -73,7 +73,7 @@ services:
       TASKS: 1
 
   vector:
-    image: timberio/vector:0.42.0-alpine@sha256:913878963fdead8276686ff96831db994acc5c740447b2186da0d87c835d8375
+    image: timberio/vector:0.43.1-alpine@sha256:3677b6007e24e88a6b2a42f51c25fda27b6579e7c3b704fb63c770e5be06cd1a
     container_name: traefik-vector
     restart: unless-stopped
     depends_on:
