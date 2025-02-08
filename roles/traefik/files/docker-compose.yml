@@ -7,7 +7,7 @@ networks:
     external: true
 services:
   traefik:
-    image: traefik:v3.3.1@sha256:b051db814cb18a7533fa9e645ae9bcbe5bf3c8136df2a7f7898329760c4206a9
+    image: traefik:v3.3.3@sha256:f1fdee7fda041872cff24e36a08f45ca53f006ded88f743a8e30e3d87ca52b48
     container_name: traefik
     restart: unless-stopped
     depends_on:
@@ -73,7 +73,7 @@ services:
       TASKS: 1
 
   vector:
-    image: timberio/vector:0.43.1-alpine@sha256:3677b6007e24e88a6b2a42f51c25fda27b6579e7c3b704fb63c770e5be06cd1a
+    image: timberio/vector:0.44.0-alpine@sha256:e285e1543366ac306f3957c25d3aca4d2f86855ae274fa4de3522676d72fa0df
     container_name: traefik-vector
     restart: unless-stopped
     depends_on:
@@ -89,7 +89,7 @@ services:
 
   # Simple service for testing
   whoami:
-    image: traefik/whoami:v1.10.3@sha256:43a68d10b9dfcfc3ffbfe4dd42100dc9aeaf29b3a5636c856337a5940f1b4f1c
+    image: traefik/whoami:v1.10.4@sha256:1699d99cb4b9acc17f74ca670b3d8d0b7ba27c948b3445f0593b58ebece92f04
     container_name: whoami
     networks:
       - traefik
