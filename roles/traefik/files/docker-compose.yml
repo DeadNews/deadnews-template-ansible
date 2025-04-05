@@ -7,7 +7,7 @@ networks:
     external: true
 services:
   traefik:
-    image: traefik:v3.3.4@sha256:cc11989f418e2cfe5e60fc40c92c1813be847f58eda15eced7d5ac890255ad9e
+    image: traefik:v3.3.5@sha256:104204dadedf5d1284f8ef8f97f705649ac81aa6f7a6c9abf13e2c59245b8abc
     container_name: traefik
     restart: unless-stopped
     depends_on:
@@ -89,7 +89,7 @@ services:
 
   # Simple service for testing
   whoami:
-    image: traefik/whoami:v1.10.4@sha256:1699d99cb4b9acc17f74ca670b3d8d0b7ba27c948b3445f0593b58ebece92f04
+    image: traefik/whoami:v1.11.0@sha256:200689790a0a0ea48ca45992e0450bc26ccab5307375b41c84dfc4f2475937ab
     container_name: whoami
     networks:
       - traefik
